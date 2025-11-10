@@ -154,28 +154,14 @@ window.products = function () {
 
     // --- TAMBAHAN: Fungsi init untuk me-reset halaman saat filter berubah ---
     init() {
-      // Awasi perubahan pada 'selectedCategory'
-      this.$watch("selectedCategory", () => {
+      const updateAndRefreshIcons = () => {
         this.currentPage = 1;
-      });
+        this.$nextTick(() => feather.replace());
+      };
 
-      // Awasi perubahan pada 'searchTerm'
-      this.$watch("searchTerm", () => {
-        this.currentPage = 1;
-      });
-
-      // Awasi perubahan pada 'sortOption'
-      this.$watch("sortOption", () => {
-        this.currentPage = 1;
-      });
-
-      // Awasi perubahan pada 'currentPage' untuk me-render ulang ikon
-      this.$watch('currentPage', () => {
-        // Tunggu hingga DOM diperbarui oleh Alpine, baru ganti ikon
-        this.$nextTick(() => {
-          feather.replace();
-        });
-      });
+      this.$watch("selectedCategory", updateAndRefreshIcons);
+      this.$watch("searchTerm", updateAndRefreshIcons);
+      this.$watch("sortOption", updateAndRefreshIcons);
     },
     // --- AKHIR TAMBAHAN ---
 
@@ -228,6 +214,7 @@ window.products = function () {
       if (page >= 1 && page <= this.totalPages()) {
         this.currentPage = page;
         window.scrollTo({ top: 0, behavior: "smooth" });
+        this.$nextTick(() => feather.replace());
       }
     },
   };
