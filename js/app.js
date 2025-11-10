@@ -228,9 +228,18 @@ window.products = function () {
 // ==================== Alpine Store: Cart ====================
 document.addEventListener("alpine:init", () => {
   Alpine.store("cart", {
-    items: [],
+    items: JSON.parse(localStorage.getItem('cartItems')) || [],
     total: 0,
     quantity: 0,
+
+    init() {
+      this.updateTotals();
+      // Watch for changes and save to localStorage
+      this.$watch('items', () => {
+        localStorage.setItem('cartItems', JSON.stringify(this.items));
+        this.updateTotals();
+      });
+    },
 
     add(newItem) {
       const existing = this.items.find((item) => item.id === newItem.id);
@@ -247,6 +256,7 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.updateTotals();
+      localStorage.setItem('cartItems', JSON.stringify(this.items));
     },
 
     remove(id) {
@@ -261,6 +271,7 @@ document.addEventListener("alpine:init", () => {
       }
 
       this.updateTotals();
+      localStorage.setItem('cartItems', JSON.stringify(this.items));
     },
 
     updateTotals() {

@@ -9,13 +9,6 @@ document.addEventListener("DOMContentLoaded", async () => {
       // Jalankan feather icons di dalam header
       if (typeof feather !== "undefined") feather.replace();
 
-      // Setelah header dimuat, baru pasang event listener tombol cart
-      const cartButton = document.getElementById("cart-toggle");
-      if (cartButton) {
-        cartButton.addEventListener("click", () => {
-          window.location.href = "my cart.html";
-        });
-      }
     } catch (err) {
       console.error("Gagal memuat header:", err);
     }

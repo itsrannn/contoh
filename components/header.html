@@ -9,9 +9,9 @@
       <a href="my account.html" class="icon-btn" aria-label="Account">
         <i data-feather="user"></i>
       </a>
-      <button id="cart-toggle" class="icon-btn" aria-label="Cart">
+      <button id="cart-toggle" class="icon-btn" aria-label="Cart" x-data @click="window.location.href='my cart.html'">
         <i data-feather="shopping-cart"></i>
-        <span id="cart-count" class="badge">0</span>
+        <span id="cart-count" class="badge" x-show="$store.cart.quantity > 0" x-text="$store.cart.quantity">0</span>
       </button>
     </div>
   </div>
