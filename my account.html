@@ -1,245 +1,141 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Carita Hidroponik</title>
 
-    <!-- Style -->
-    <link rel="stylesheet" href="css/style.css" />
-    <link rel="stylesheet" href="css/my account.css" />
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Akun Saya - Carita Hidroponik</title>
 
-    <!-- Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/my account.css" />
 
-    <!-- Supabase Client -->
-    <script type="module" src="js/supabase-client.js"></script>
-  </head>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
+</head>
 
-  <body>
-    <!-- ========== HEADER INCLUDE ========== -->
-    <div id="header-include"></div>
+<body x-data="accountPage" @alpine:init="$store.cart.init()" x-init="init()">
+  <div id="header-include"></div>
 
-    <!--My Account start-->
-    <section class="my-account">
-      <div class="account-header">
-        <i data-feather="user" class="feather-icons"></i>
-        <h2>My Account</h2>
+  <main class="main-content">
+    <div class="container">
+      <h1 class="page-title">Akun Saya</h1>
+      <div class="account-layout">
+        <aside class="account-sidebar">
+          <nav class="account-nav">
+            <ul>
+              <li>
+                <a href="#" class="active"><i data-feather="user"></i> Profil Saya</a>
+              </li>
+              <li>
+                <a href="#" @click.prevent="handleLogout()"><i data-feather="log-out"></i> Keluar</a>
+              </li>
+            </ul>
+          </nav>
+        </aside>
+
+        <section class="account-main">
+          <!-- Profile Details Section -->
+          <div class="account-section">
+            <div class="section-header">
+              <h2>Profil Saya</h2>
+              <button class="btn btn-sm btn-outline" @click="editProfileMode = !editProfileMode" x-text="editProfileMode ? 'Batal' : 'Ubah Profil'"></button>
+            </div>
+            <div class="section-body">
+              <form @submit.prevent="updateProfile">
+                <div class="form-group">
+                  <label for="fullName">Nama Lengkap</label>
+                  <input type="text" id="fullName" x-model="profile.full_name" :disabled="!editProfileMode" />
+                </div>
+                <div class="form-group">
+                  <label for="email">Alamat Email</label>
+                  <input type="email" id="email" :value="user ? user.email : ''" disabled />
+                </div>
+                <div class="form-actions" x-show="editProfileMode">
+                  <button type="submit" class="btn btn-primary" :disabled="loading">
+                    <span x-show="!loading">Simpan Perubahan</span>
+                    <span x-show="loading">Menyimpan...</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <!-- Address Section -->
+          <div class="account-section">
+            <div class="section-header">
+              <h2>Alamat Pengiriman</h2>
+              <button class="btn btn-sm btn-outline" @click="editAddressMode = !editAddressMode" x-text="editAddressMode ? 'Batal' : 'Ubah Alamat'"></button>
+            </div>
+            <div class="section-body">
+              <form @submit.prevent="updateAddress">
+                <div class="form-group">
+                  <label for="province">Provinsi</label>
+                  <select id="province" x-model="selectedProvince" :disabled="!editAddressMode">
+                    <option value="">Pilih Provinsi</option>
+                    <template x-for="province in provinces" :key="province.id">
+                      <option :value="province.id" x-text="province.name"></option>
+                    </template>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="regency">Kota/Kabupaten</label>
+                  <select id="regency" x-model="selectedRegency" :disabled="!editAddressMode || !regencies.length">
+                    <option value="">Pilih Kota/Kabupaten</option>
+                    <template x-for="regency in regencies" :key="regency.id">
+                      <option :value="regency.id" x-text="regency.name"></option>
+                    </template>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="district">Kecamatan</label>
+                  <select id="district" x-model="selectedDistrict" :disabled="!editAddressMode || !districts.length">
+                    <option value="">Pilih Kecamatan</option>
+                    <template x-for="district in districts" :key="district.id">
+                      <option :value="district.id" x-text="district.name"></option>
+                    </template>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="village">Kelurahan/Desa</label>
+                  <select id="village" x-model="selectedVillage" :disabled="!editAddressMode || !villages.length">
+                    <option value="">Pilih Kelurahan/Desa</option>
+                    <template x-for="village in villages" :key="village.id">
+                      <option :value="village.id" x-text="village.name"></option>
+                    </template>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label for="address">Nama Jalan, Gedung, No. Rumah</label>
+                  <input type="text" id="address" x-model="profile.address" :disabled="!editAddressMode" />
+                </div>
+                <div class="form-group">
+                  <label for="postalCode">Kode Pos</label>
+                  <input type="text" id="postalCode" x-model="profile.postal_code" :disabled="!editAddressMode" />
+                </div>
+                <div class="form-actions" x-show="editAddressMode">
+                  <button type="submit" class="btn btn-primary" :disabled="loading">
+                    <span x-show="!loading">Simpan Alamat</span>
+                    <span x-show="loading">Menyimpan...</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
       </div>
-      <div class="container">
-        <form class="account-form" id="profile-form">
-          <div class="form-group">
-            <label for="profile-name">Name</label>
-            <input type="text" id="profile-name" placeholder="Your name" />
-          </div>
-          <div class="form-group">
-            <label for="profile-email">Email</label>
-            <input type="email" id="profile-email" disabled />
-          </div>
-          <button type="submit" class="btn">Update Profile</button>
-        </form>
-      </div>
+    </div>
+    <div id="notification" class="notification"></div>
+  </main>
 
-      <div class="account-header">
-        <i data-feather="map-pin" class="feather-icons"></i>
-        <h2>Shipping Address</h2>
-      </div>
-      <div class="container">
-        <form class="account-form" id="address-form">
-          <div class="form-group">
-            <label for="address-street">Alamat</label>
-            <input type="text" id="address-street" placeholder="Jl. Raya Cilebut No.123" />
-          </div>
-          <div class="form-group">
-            <label for="address-province">Provinsi</label>
-            <input type="text" id="address-province" placeholder="Jawa Timur" />
-          </div>
-          <div class="form-group">
-            <label for="address-city">Kota/Kabupaten</label>
-            <input type="text" id="address-city" placeholder="Kabupaten Malang" />
-          </div>
-          <div class="form-group">
-            <label for="address-district">Kecamatan</label>
-            <input type="text" id="address-district" placeholder="Turen" />
-          </div>
-          <div class="form-group">
-            <label for="address-village">Desa/Kelurahan</label>
-            <input type="text" id="address-village" placeholder="Sedayu" />
-          </div>
-          <div class="form-group">
-            <label for="address-postal-code">Postal Code</label>
-            <input type="text" id="address-postal-code" placeholder="65175" />
-          </div>
-          <button type="submit" class="btn">Update Address</button>
-        </form>
-      </div>
+  <div id="footer-include"></div>
 
-      <div class="account-header">
-        <i data-feather="archive" class="feather-icons"></i>
-        <h2>Order History</h2>
-      </div>
+  <script src="https://unpkg.com/feather-icons"></script>
+  <script src="js/app.js"></script>
+  <script src="js/include.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.10/dist/cdn.min.js" defer></script>
+  <script src="js/supabase-client.js"></script>
+  <script src="js/provinces.js"></script>
+  <script src="js/my-account.js"></script>
+  <script src="js/script.js"></script>
+</body>
 
-      <div class="container">
-        <table class="order-history">
-          <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Total</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>#12345</td>
-              <td>2023-10-01</td>
-              <td>Completed</td>
-              <td>Rp 150.000</td>
-              <td class="td-center">
-                <button class="btn">View Details</button>
-              </td>
-            </tr>
-            <tr>
-              <td>#12346</td>
-              <td>2023-10-05</td>
-              <td>Processing</td>
-              <td>Rp 200.000</td>
-              <td class="td-center">
-                <button class="btn">View Details</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="no-orders" style="display: none">
-          <p>You have no past orders.</p>
-        </div>
-      </div>
-
-      <!-- Logout button -->
-      <div class="logout-container">
-        <button class="btn logout-btn">Logout</button>
-      </div>
-    </section>
-    <!--My Account end-->
-
-    <!-- ========== FOOTER INCLUDE ========== -->
-    <div id="footer-include"></div>
-    
-    <!-- ================== SCRIPTS ================== -->
-    <script src="https://unpkg.com/feather-icons"></script>
-    <script src="js/app.js"></script>
-    <script src="js/include.js"></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.10/dist/cdn.min.js"
-      defer
-    ></script>
-    <script src="js/script.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", () => feather.replace());
-    </script>
-
-    <script type="module">
-      import { supabase } from './js/supabase-client.js';
-
-      document.addEventListener('DOMContentLoaded', async () => {
-        const profileForm = document.getElementById('profile-form');
-        const addressForm = document.getElementById('address-form');
-        const logoutButton = document.querySelector('.logout-btn');
-
-        // Check for active session
-        const { data: { session } } = await supabase.auth.getSession();
-        if (!session) {
-          window.location.href = 'login page.html';
-          return;
-        }
-
-        const user = session.user;
-
-        // Fetch profile data
-        const { data: profile, error } = await supabase
-          .from('profiles')
-          .select('*')
-          .eq('id', user.id)
-          .single();
-
-        // If there's an error fetching, it might be because the profile doesn't exist yet.
-        // We log the error but continue, allowing the user to create their profile.
-        if (error && error.code !== 'PGRST116') { // PGRST116 = 0 rows
-          console.error('Error fetching profile:', error);
-          return; // For critical errors, we stop.
-        }
-
-        // Populate forms, checking if profile exists
-        document.getElementById('profile-name').value = profile?.full_name || '';
-        document.getElementById('profile-email').value = user.email;
-        document.getElementById('address-street').value = profile?.address || '';
-        document.getElementById('address-province').value = profile?.province || '';
-        document.getElementById('address-city').value = profile?.city || '';
-        document.getElementById('address-district').value = profile?.district || '';
-        document.getElementById('address-village').value = profile?.village || '';
-        document.getElementById('address-postal-code').value = profile?.postal_code || '';
-
-        // Handle profile update (using upsert)
-        profileForm.addEventListener('submit', async (event) => {
-          event.preventDefault();
-          const profileData = {
-            id: user.id, // Include the ID for the upsert
-            full_name: document.getElementById('profile-name').value,
-          };
-
-          const { error } = await supabase
-            .from('profiles')
-            .upsert(profileData, { onConflict: 'id' });
-
-          if (error) {
-            alert(`Error updating profile: ${error.message}`);
-          } else {
-            alert('Profile updated successfully!');
-          }
-        });
-
-        // Handle address update (using upsert)
-        addressForm.addEventListener('submit', async (event) => {
-          event.preventDefault();
-          const address = {
-            id: user.id, // Include the ID for the upsert
-            address: document.getElementById('address-street').value,
-            province: document.getElementById('address-province').value,
-            city: document.getElementById('address-city').value,
-            district: document.getElementById('address-district').value,
-            village: document.getElementById('address-village').value,
-            postal_code: document.getElementById('address-postal-code').value,
-          };
-
-          const { error } = await supabase
-            .from('profiles')
-            .upsert(address, { onConflict: 'id' });
-
-          if (error) {
-            alert(`Error updating address: ${error.message}`);
-          } else {
-            alert('Address updated successfully!');
-          }
-        });
-
-        // Handle logout
-        logoutButton.addEventListener('click', async () => {
-          const { error } = await supabase.auth.signOut();
-          if (error) {
-            console.error('Error signing out:', error);
-          } else {
-            window.location.href = 'login page.html';
-          }
-        });
-      });
-    </script>
-    <!-- Feather Icons -->
-    <script>
-      feather.replace();
-    </script>
-  </body>
 </html>
