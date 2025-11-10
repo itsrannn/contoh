@@ -13,7 +13,7 @@
     />
   </head>
 
-  <body>
+  <body x-data @alpine:init="$store.cart.init()">
     <div id="header-include"></div>
 
     <section id="Home" class="hero-section">

@@ -15,7 +15,7 @@
     />
   </head>
 
-  <body>
+  <body x-data @alpine:init="$store.cart.init()">
     <!-- ========== HEADER INCLUDE ========== -->
     <div id="header-include"></div>
 
@@ -33,52 +33,31 @@
                 <div class="header-total">Total</div>
               </div>
 
-              <div id="cart-items-list">
-                <div class="cart-item">
-                  <div class="cart-item-product">
-                    <img
-                      src="img/general/Kucing Anggora.jpg"
-                      alt="Benih Pakcoy"
-                      class="cart-item-image"
-                    />
-                    <div class="cart-item-details">
-                      <h4 class="item-name">Benih Pakcoy Super</h4>
-                      <div class="item-price">Rp 20.000</div>
-                    </div>
-                  </div>
-                  <div class="cart-item-quantity">
-                    <button class="quantity-btn" aria-label="Kurangi">-</button>
-                    <span class="quantity-value">1</span>
-                    <button class="quantity-btn" aria-label="Tambah">+</button>
-                  </div>
-                  <div class="cart-item-total">Rp 20.000</div>
-                  <button class="cart-item-remove" aria-label="Hapus item">
-                    <i data-feather="trash-2"></i>
-                  </button>
-                </div>
+              <div id="cart-items-list" x-data="{ cart: $store.cart }">
+                <template x-if="cart.items.length === 0">
+                  <p class="cart-empty-message">Keranjang belanja Anda kosong.</p>
+                </template>
 
-                <div class="cart-item">
-                  <div class="cart-item-product">
-                    <img
-                      src="img/general/Munchkin.jpg"
-                      alt="Nutrisi AB Mix"
-                      class="cart-item-image"
-                    />
-                    <div class="cart-item-details">
-                      <h4 class="item-name">Nutrisi AB Mix 500ml</h4>
-                      <div class="item-price">Rp 45.000</div>
+                <template x-for="item in cart.items" :key="item.id">
+                  <div class="cart-item">
+                    <div class="cart-item-product">
+                      <img :src="item.img" :alt="item.name" class="cart-item-image" />
+                      <div class="cart-item-details">
+                        <h4 class="item-name" x-text="item.name"></h4>
+                        <div class="item-price" x-text="`Rp ${item.price.toLocaleString('id-ID')}`"></div>
+                      </div>
                     </div>
+                    <div class="cart-item-quantity">
+                      <button class="quantity-btn" @click="cart.remove(item.id)" aria-label="Kurangi">-</button>
+                      <span class="quantity-value" x-text="item.quantity"></span>
+                      <button class="quantity-btn" @click="cart.add(item)" aria-label="Tambah">+</button>
+                    </div>
+                    <div class="cart-item-total" x-text="`Rp ${(item.quantity * item.price).toLocaleString('id-ID')}`"></div>
+                    <button class="cart-item-remove" @click="cart.items = cart.items.filter(i => i.id !== item.id); cart.updateTotals()" aria-label="Hapus item">
+                      <i data-feather="trash-2"></i>
+                    </button>
                   </div>
-                  <div class="cart-item-quantity">
-                    <button class="quantity-btn" aria-label="Kurangi">-</button>
-                    <span class="quantity-value">2</span>
-                    <button class="quantity-btn" aria-label="Tambah">+</button>
-                  </div>
-                  <div class="cart-item-total">Rp 90.000</div>
-                  <button class="cart-item-remove" aria-label="Hapus item">
-                    <i data-feather="trash-2"></i>
-                  </button>
-                </div>
+                </template>
               </div>
 
               <a href="index.html#Product" class="continue-shopping">
@@ -87,7 +66,7 @@
             </div>
 
             <!-- SUMMARY -->
-            <div class="cart-summary">
+            <div class="cart-summary" x-data="{ cart: $store.cart }">
               <h3>Ringkasan Belanja</h3>
 
               <div class="coupon-form">
@@ -97,19 +76,19 @@
 
               <div class="summary-item">
                 <span>Subtotal</span>
-                <span id="summary-subtotal">Rp 110.000</span>
+                <span id="summary-subtotal" x-text="`Rp ${cart.total.toLocaleString('id-ID')}`">Rp 0</span>
               </div>
               <div class="summary-item">
                 <span>Ongkos Kirim</span>
-                <span id="summary-shipping">Rp 15.000</span>
+                <span id="summary-shipping">Rp 0</span>
               </div>
 
               <div class="summary-total">
                 <span>Total</span>
-                <span id="summary-total">Rp 125.000</span>
+                <span id="summary-total" x-text="`Rp ${cart.total.toLocaleString('id-ID')}`">Rp 0</span>
               </div>
 
-              <button id="checkout-btn" class="btn btn-primary btn-block">
+              <button id="checkout-btn" class="btn btn-primary btn-block" :disabled="cart.items.length === 0">
                 Checkout Sekarang
               </button>
             </div>
