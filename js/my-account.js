@@ -109,8 +109,8 @@ document.addEventListener('alpine:init', () => {
             try {
                 const { error } = await supabase.auth.signOut();
                 if (error) throw error;
-                // Redirect to the login page after successful logout
-                window.location.href = '/login page.html';
+                // Correctly redirect to the login page relative to the current path
+                window.location.href = 'login page.html';
             } catch (error) {
                 alert('Error logging out: ' + error.message);
             } finally {
