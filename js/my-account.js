@@ -1,5 +1,5 @@
-import { supabase } from './supabase-client.js';
-import { createProfileForNewUser } from './database.js';
+// js/my-account.js
+// This script assumes 'supabase' and 'createProfileForNewUser' are global.
 
 document.addEventListener('alpine:init', () => {
     Alpine.data('accountPage', () => ({
@@ -50,7 +50,8 @@ document.addEventListener('alpine:init', () => {
                     // If no profile exists, create one
                     const newProfile = await createProfileForNewUser(this.user);
                     if (newProfile) {
-                        this.profile = { ...this.profile, ...newProfile[0] };
+                        // After creating, re-fetch to ensure data consistency
+                        await this.getProfile();
                     }
                 }
             } catch (error) {

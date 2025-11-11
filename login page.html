@@ -14,8 +14,11 @@
       rel="stylesheet"
     />
 
-    <!-- Supabase Client -->
-    <script type="module" src="js/supabase-client.js"></script>
+    <!-- Load Supabase library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <!-- Load our custom Supabase client -->
+    <script src="js/supabase-client.js"></script>
   </head>
 
   <body>
@@ -136,9 +139,7 @@
       }
     </script>
 
-    <script type="module">
-      import { supabase } from './js/supabase-client.js';
-
+    <script>
       document.addEventListener('DOMContentLoaded', () => {
         const loginForm = document.querySelector('#login-form form');
         const registerForm = document.querySelector('#register-form form');
