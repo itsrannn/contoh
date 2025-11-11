@@ -147,22 +147,27 @@
         // --- Role-based redirection logic ---
         const handleRedirect = async (user) => {
           try {
-            const { data: profile, error } = await supabase
+            const { data: profile, error, status } = await supabase
               .from('profiles')
               .select('role')
               .eq('id', user.id)
               .single();
 
-            if (error) throw error;
+            // Handle cases where the profile might not be found or RLS fails
+            if (error && status !== 406) {
+              throw error;
+            }
 
-            if (profile && profile.role === 'admin') {
+            // Check role case-insensitively and redirect
+            if (profile && profile.role && profile.role.toLowerCase() === 'admin') {
               window.location.href = 'admin.html';
             } else {
               window.location.href = 'my account.html';
             }
           } catch (err) {
             console.error('Error fetching profile for redirect:', err);
-            // Default redirect if profile fetch fails
+            alert('Login berhasil, namun gagal mengambil data profil. Silakan hubungi dukungan.');
+            // Default redirect to the customer account page as a fallback
             window.location.href = 'my account.html';
           }
         };
