@@ -3,8 +3,9 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <title>Login Page | Carita Hidroponik</title>
+    <title>Keranjang Saya - Carita Hidroponik</title>
 
+    <!-- ========== STYLE ========== -->
     <link rel="stylesheet" href="css/style.css" />
     <link rel="stylesheet" href="css/login page.css" />
 
@@ -13,19 +14,25 @@
       rel="stylesheet"
     />
 
+    <!-- Load Supabase library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js"></script>
+
+    <!-- Load our custom Supabase client -->
     <script src="js/supabase-client.js"></script>
   </head>
 
   <body>
+    <!-- ========== HEADER INCLUDE ========== -->
     <div id="header-include"></div>
 
+    <!-- ================== Login Section ================== -->
     <section class="login">
+      <!-- Login Form start -->
       <div class="container">
-        <!-- LOGIN -->
         <section>
           <div class="login-form active" id="login-form">
             <form>
+              <input type="hidden" name="login" value="1" />
               <h1>Login</h1>
               <div class="input-box">
                 <input type="email" name="email" placeholder="Email" required />
@@ -41,12 +48,10 @@
                 />
                 <i data-feather="lock"></i>
               </div>
-
               <div class="remember-forgot">
-                <label><input type="checkbox" /> Remember me</label>
+                <label><input type="checkbox" />Remember me</label>
                 <a href="#">Forgot Password?</a>
               </div>
-
               <button type="submit" class="btn">Login</button>
               <div class="register-link">
                 <p>
@@ -57,11 +62,10 @@
             </form>
           </div>
         </section>
-
-        <!-- REGISTER -->
         <section>
           <div class="login-form" id="register-form">
             <form>
+              <input type="hidden" name="register" value="1" />
               <h1>Register</h1>
 
               <div class="input-box">
@@ -84,6 +88,10 @@
                 <i data-feather="lock"></i>
               </div>
 
+              <div class="remember-forgot">
+                <label><input type="checkbox" /> Remember me</label>
+              </div>
+
               <button type="submit" class="btn">Register</button>
 
               <div class="register-link">
@@ -98,15 +106,24 @@
       </div>
     </section>
 
+    <!-- ========== FOOTER INCLUDE ========== -->
     <div id="footer-include"></div>
 
+    <!-- ================== SCRIPTS ================== -->
+    <!-- Feather icons -->
     <script src="https://unpkg.com/feather-icons"></script>
+
     <script src="js/app.js"></script>
     <script src="js/include.js"></script>
+
     <script
       src="https://cdn.jsdelivr.net/npm/alpinejs@3.13.10/dist/cdn.min.js"
       defer
     ></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => feather.replace());
+    </script>
     <script src="js/script.js"></script>
 
     <script>
@@ -114,40 +131,39 @@
         document.querySelectorAll(".login-form").forEach((form) => {
           form.classList.remove("active");
         });
-        document.getElementById(formIdToShow).classList.add("active");
-      }
 
-      document.addEventListener("DOMContentLoaded", () => feather.replace());
+        const targetForm = document.getElementById(formIdToShow);
+        if (targetForm) {
+          targetForm.classList.add("active");
+        }
+      }
     </script>
 
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        const loginForm = document.querySelector("#login-form form");
-        const registerForm = document.querySelector("#register-form form");
+      document.addEventListener('DOMContentLoaded', () => {
+        const loginForm = document.querySelector('#login-form form');
+        const registerForm = document.querySelector('#register-form form');
 
-        // Redirect after login based on role
+        // --- Role-based redirection logic ---
         const handleRedirect = async (user) => {
-          const { data: profile, error } = await supabase
-            .from("users")
-            .select("role")
-            .eq("id", user.id)
+          // Attempt to fetch the user's role.
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', user.id)
             .single();
 
-          if (error || !profile) {
-            alert("Login berhasil, namun gagal memeriksa role Anda.");
-            window.location.href = "my account.html";
-            return;
-          }
-
-          if (profile.role === "admin") {
-            window.location.href = "admin.html";
+          // Secure default: if profile doesn't load or role is not admin,
+          // redirect to the customer account page.
+          if (profile && profile.role && profile.role.toLowerCase() === 'admin') {
+            window.location.href = 'admin.html';
           } else {
-            window.location.href = "my account.html";
+            window.location.href = 'my account.html';
           }
         };
 
-        // Login
-        loginForm.addEventListener("submit", async (event) => {
+        // --- Login Form Handler ---
+        loginForm.addEventListener('submit', async (event) => {
           event.preventDefault();
           const email = loginForm.email.value;
           const password = loginForm.password.value;
@@ -164,8 +180,8 @@
           }
         });
 
-        // Register
-        registerForm.addEventListener("submit", async (event) => {
+        // --- Registration Form Handler ---
+        registerForm.addEventListener('submit', async (event) => {
           event.preventDefault();
           const name = registerForm.name.value;
           const email = registerForm.email.value;
@@ -174,28 +190,23 @@
           const { data, error } = await supabase.auth.signUp({
             email,
             password,
+            options: {
+              data: { full_name: name }
+            }
           });
 
           if (error) {
             alert(`Error: ${error.message}`);
           } else if (data.user) {
-            // Insert ke tabel users
-            const { error: insertError } = await supabase.from("users").insert([
-              {
-                id: data.user.id,
-                nama: name,
-                email: email,
-                role: "customer",
-              },
-            ]);
-
-            if (insertError) {
-              alert(`Registrasi berhasil, tapi gagal membuat profil: ${insertError.message}`);
-            }
-            window.location.href = "my account.html";
+            // The trigger will create the profile. We just need to redirect.
+            // Since the default role is 'customer', we can send them to the account page.
+            window.location.href = 'my account.html';
           }
         });
       });
+    </script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => feather.replace());
     </script>
   </body>
 </html>
