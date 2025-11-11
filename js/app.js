@@ -41,7 +41,7 @@ const allProducts = [
   {
     id: 5,
     name: "Benih Cabai Jalapeno",
-    category: "Benih",
+    category: "benih",
     price: 20000,
     img: "img/general/Cabai Jalapeno.png",
     char: "Kompos Murni <br> - Menyuburkan Tanah <br> - Ramah Lingkungan <br> - 5kg",
@@ -50,7 +50,7 @@ const allProducts = [
   {
     id: 6,
     name: "Benih Cabai Naga Viper",
-    category: "Benih",
+    category: "benih",
     price: 28000,
     img: "img/general/Cabai Naga Viper.png",
     char: "Kompos Murni <br> - Menyuburkan Tanah <br> - Ramah Lingkungan <br> - 5kg",
@@ -59,7 +59,7 @@ const allProducts = [
   {
     id: 7,
     name: "Benih Cabai Orange Drop",
-    category: "Benih",
+    category: "benih",
     price: 17000,
     img: "img/general/Cabai Orange Drop.png",
     char: "Kompos Murni <br> - Menyuburkan Tanah <br> - Ramah Lingkungan <br> - 5kg",
@@ -68,7 +68,7 @@ const allProducts = [
   {
     id: 8,
     name: "Benih Cabai Scotch Bonnet",
-    category: "Benih",
+    category: "benih",
     price: 25000,
     img: "img/general/Cabai Scotch Bonnet.png",
     char: "Kompos Murni <br> - Menyuburkan Tanah <br> - Ramah Lingkungan <br> - 5kg",
@@ -77,7 +77,7 @@ const allProducts = [
   {
     id: 9,
     name: "Benih Cabai Thai Chili",
-    category: "Benih",
+    category: "benih",
     price: 15000,
     img: "img/general/Cabai Thai Chili.png",
     char: "Kompos Murni <br> - Menyuburkan Tanah <br> - Ramah Lingkungan <br> - 5kg",
