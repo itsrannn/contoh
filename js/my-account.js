@@ -1,5 +1,5 @@
 // js/my-account.js
-// This script assumes 'supabase' and 'createProfileForNewUser' are global.
+// This script assumes 'supabase' is a global variable.
 
 document.addEventListener('alpine:init', () => {
     Alpine.data('accountPage', () => ({
@@ -22,7 +22,6 @@ document.addEventListener('alpine:init', () => {
 
         // --- Initialization ---
         async init() {
-            // Check session and fetch profile
             const { data: { session } } = await supabase.auth.getSession();
             if (!session) {
                 window.location.href = '/login page.html';
@@ -36,24 +35,17 @@ document.addEventListener('alpine:init', () => {
         async getProfile() {
             this.loading = true;
             try {
-                const { data, error, status } = await supabase
+                // The backend trigger now guarantees a profile exists,
+                // so we just need to fetch it.
+                const { data, error } = await supabase
                     .from('profiles')
                     .select(`full_name, address, postal_code, province, regency, district, village`)
                     .eq('id', this.user.id)
                     .single();
 
-                if (error && status !== 406) throw error;
+                if (error) throw error;
+                if (data) this.profile = { ...this.profile, ...data };
 
-                if (data) {
-                    this.profile = { ...this.profile, ...data };
-                } else {
-                    // If no profile exists, create one
-                    const newProfile = await createProfileForNewUser(this.user);
-                    if (newProfile) {
-                        // After creating, re-fetch to ensure data consistency
-                        await this.getProfile();
-                    }
-                }
             } catch (error) {
                 alert('Error loading profile: ' + error.message);
             } finally {
@@ -64,14 +56,19 @@ document.addEventListener('alpine:init', () => {
         async updateProfile() {
             this.loading = true;
             try {
-                const { error } = await supabase.from('profiles').upsert({
+                const { data, error } = await supabase.from('profiles').upsert({
                     id: this.user.id,
                     full_name: this.profile.full_name,
                     updated_at: new Date()
-                });
+                }).select().single();
+
                 if (error) throw error;
-                alert('Profile updated successfully!');
-                this.editProfileMode = false;
+
+                if (data) {
+                    this.profile = { ...this.profile, ...data };
+                    alert('Profile updated successfully!');
+                    this.editProfileMode = false;
+                }
             } catch (error) {
                 alert('Error updating profile: ' + error.message);
             } finally {
@@ -82,7 +79,7 @@ document.addEventListener('alpine:init', () => {
         async updateAddress() {
             this.loading = true;
             try {
-                const { error } = await supabase.from('profiles').upsert({
+                const { data, error } = await supabase.from('profiles').upsert({
                     id: this.user.id,
                     address: this.profile.address,
                     postal_code: this.profile.postal_code,
@@ -91,10 +88,15 @@ document.addEventListener('alpine:init', () => {
                     district: this.profile.district,
                     village: this.profile.village,
                     updated_at: new Date()
-                });
+                }).select().single();
+
                 if (error) throw error;
-                alert('Address updated successfully!');
-                this.editAddressMode = false;
+
+                if (data) {
+                    this.profile = { ...this.profile, ...data };
+                    alert('Address updated successfully!');
+                    this.editAddressMode = false;
+                }
             } catch (error) {
                 alert('Error updating address: ' + error.message);
             } finally {
