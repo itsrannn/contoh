@@ -7,6 +7,7 @@ document.addEventListener('alpine:init', () => {
         user: null,
         profile: {
             full_name: '',
+            phone_number: '', // Add phone_number to the profile object
             address: '',
             postal_code: '',
             province: '',
@@ -35,11 +36,10 @@ document.addEventListener('alpine:init', () => {
         async getProfile() {
             this.loading = true;
             try {
-                // The backend trigger now guarantees a profile exists,
-                // so we just need to fetch it.
+                // Fetch the new phone_number field
                 const { data, error } = await supabase
                     .from('profiles')
-                    .select(`full_name, address, postal_code, province, regency, district, village`)
+                    .select(`full_name, phone_number, address, postal_code, province, regency, district, village`)
                     .eq('id', this.user.id)
                     .single();
 
@@ -56,11 +56,12 @@ document.addEventListener('alpine:init', () => {
         async updateProfile() {
             this.loading = true;
             try {
-                const { data, error } = await supabase.from('profiles').upsert({
-                    id: this.user.id,
+                // Save the new phone_number field
+                const { data, error } = await supabase.from('profiles').update({
                     full_name: this.profile.full_name,
+                    phone_number: this.profile.phone_number,
                     updated_at: new Date()
-                }).select().single();
+                }).eq('id', this.user.id).select().single();
 
                 if (error) throw error;
 
@@ -79,8 +80,7 @@ document.addEventListener('alpine:init', () => {
         async updateAddress() {
             this.loading = true;
             try {
-                const { data, error } = await supabase.from('profiles').upsert({
-                    id: this.user.id,
+                const { data, error } = await supabase.from('profiles').update({
                     address: this.profile.address,
                     postal_code: this.profile.postal_code,
                     province: this.profile.province,
@@ -88,7 +88,7 @@ document.addEventListener('alpine:init', () => {
                     district: this.profile.district,
                     village: this.profile.village,
                     updated_at: new Date()
-                }).select().single();
+                }).eq('id', this.user.id).select().single();
 
                 if (error) throw error;
 
