@@ -144,10 +144,35 @@
         const loginForm = document.querySelector('#login-form form');
         const registerForm = document.querySelector('#register-form form');
 
+        // --- Role-based redirection logic ---
+        const handleRedirect = async (user) => {
+          try {
+            const { data: profile, error } = await supabase
+              .from('profiles')
+              .select('role')
+              .eq('id', user.id)
+              .single();
+
+            if (error) throw error;
+
+            if (profile && profile.role === 'admin') {
+              window.location.href = 'admin.html';
+            } else {
+              window.location.href = 'my account.html';
+            }
+          } catch (err) {
+            console.error('Error fetching profile for redirect:', err);
+            // Default redirect if profile fetch fails
+            window.location.href = 'my account.html';
+          }
+        };
+
+        // --- Login Form Handler ---
         loginForm.addEventListener('submit', async (event) => {
           event.preventDefault();
           const email = loginForm.email.value;
           const password = loginForm.password.value;
+
           const { data, error } = await supabase.auth.signInWithPassword({
             email,
             password,
@@ -155,11 +180,12 @@
 
           if (error) {
             alert(`Error: ${error.message}`);
-          } else {
-            window.location.href = 'my account.html';
+          } else if (data.user) {
+            await handleRedirect(data.user);
           }
         });
 
+        // --- Registration Form Handler ---
         registerForm.addEventListener('submit', async (event) => {
           event.preventDefault();
           const name = registerForm.name.value;
@@ -170,17 +196,15 @@
             email,
             password,
             options: {
-              data: {
-                full_name: name,
-              }
+              data: { full_name: name }
             }
           });
 
           if (error) {
             alert(`Error: ${error.message}`);
-          } else {
-            // On successful sign-up, Supabase automatically logs the user in.
-            // Redirect to the account page.
+          } else if (data.user) {
+            // The trigger will create the profile. We just need to redirect.
+            // Since the default role is 'customer', we can send them to the account page.
             window.location.href = 'my account.html';
           }
         });
