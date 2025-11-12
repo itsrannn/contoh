@@ -192,7 +192,7 @@ window.products = function () {
   return {
     searchTerm: "",
     currentPage: 1,
-    itemsPerPage: 10,
+    itemsPerPage: 8,
     selectedCategory: "all",
     sortOption: "default",
     items: allProducts,
@@ -257,7 +257,7 @@ window.products = function () {
 
     totalPages() {
       // Kalkulasi total halaman berdasarkan data yang sudah diproses
-      return Math.ceil(this.processedItems.length / this.itemsPerPage);
+      return Math.ceil(this.processedItems().length / this.itemsPerPage);
     },
 
     goToPage(page) {
