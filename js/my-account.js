@@ -47,7 +47,8 @@ document.addEventListener('alpine:init', () => {
         async fetchProvinces() {
             try {
                 const response = await fetch('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json');
-                this.provinces = await response.json();
+                const data = await response.json();
+                this.provinces = data.sort((a, b) => a.name.localeCompare(b.name));
             } catch (error) {
                 console.error('Error fetching provinces:', error);
             }
@@ -62,7 +63,8 @@ document.addEventListener('alpine:init', () => {
             }
             try {
                 const response = await fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/regencies/${this.selectedProvince}.json`);
-                this.regencies = await response.json();
+                const data = await response.json();
+                this.regencies = data.sort((a, b) => a.name.localeCompare(b.name));
                 this.districts = [];
                 this.villages = [];
             } catch (error) {
@@ -78,7 +80,8 @@ document.addEventListener('alpine:init', () => {
             }
             try {
                 const response = await fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/districts/${this.selectedRegency}.json`);
-                this.districts = await response.json();
+                const data = await response.json();
+                this.districts = data.sort((a, b) => a.name.localeCompare(b.name));
                 this.villages = [];
             } catch (error) {
                 console.error('Error fetching districts:', error);
@@ -92,7 +95,8 @@ document.addEventListener('alpine:init', () => {
             }
             try {
                 const response = await fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/villages/${this.selectedDistrict}.json`);
-                this.villages = await response.json();
+                const data = await response.json();
+                this.villages = data.sort((a, b) => a.name.localeCompare(b.name));
             } catch (error) {
                 console.error('Error fetching villages:', error);
             }
