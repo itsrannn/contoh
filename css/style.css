@@ -97,6 +97,10 @@ body {
 }
 
 /* ================== LAYOUT ================== */
+.main-content {
+  margin: 2rem;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -515,8 +519,7 @@ body {
   border-radius: var(--radius);
   box-shadow: 0 4px 12px var(--shadow);
   text-align: center;
-  margin-left: 10rem;
-  margin-right: 10rem;
+  margin: 2rem;
 }
 
 .preview h2 {
@@ -528,7 +531,6 @@ body {
 /* MODERN CONTACT PAGE STYLES */
 
 .contact-page {
-  margin: 2rem;
   padding-top: 0rem;
 }
 
@@ -556,7 +558,7 @@ body {
   /* Default: 2 kolom di tablet, 1 di mobile */
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  margin: 2rem;
+  margin: 2rem 0;
 }
 
 .news-section .section-title {
@@ -972,4 +974,368 @@ body {
   right: 0; /* Ubah dari 10px ke 0 untuk menempel di tepi */
   border-radius: 0;
   padding-right: 10px;
+}
+
+/* ================== CONTACT PAGE MODERN ================== */
+.contact-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 3rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+
+.contact-form {
+  background: #fff;
+  padding: 2.5rem;
+  border-radius: 12px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.07);
+}
+
+.contact-form label {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 1.2rem;
+  font-size: 1rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.contact-form input:focus,
+.contact-form textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+.contact-form .btn-primary {
+  width: 100%;
+  padding: 1rem;
+  font-size: 1.1rem;
+  background-color: var(--green);
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.contact-form .btn-primary:hover {
+  background-color: var(--accent);
+}
+
+.contact-info {
+  background: var(--surface);
+  padding: 2.5rem;
+  border-radius: 12px;
+}
+
+.contact-info h2 {
+  margin-top: 0;
+  color: var(--green);
+}
+
+.contact-info p {
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.contact-info a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
+
+.contact-info .social-icons {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.contact-info .social-icons a {
+  color: var(--green);
+  font-size: 1.5rem;
+}
+.contact-info .social-icons a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 992px) {
+  .contact-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ================== MY ACCOUNT V2 ================== */
+
+/* --- Layout --- */
+.account-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+  margin-top: 2rem;
+}
+
+.account-sidebar {
+  flex: 0 0 250px; /* Sidebar with fixed width */
+  position: sticky;
+  top: 90px;
+}
+
+.account-main {
+  flex: 1; /* Main content takes the rest of the space */
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.main-content .container .page-title {
+  margin-left: 0;
+  margin-bottom: 1rem;
+}
+
+
+/* --- Sidebar Navigation --- */
+.account-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  overflow: hidden;
+  border: 1px solid rgba(0,0,0,0.08);
+}
+
+.account-nav a {
+  display: flex;
+  align-items: center;
+  padding: 1rem;
+  text-decoration: none;
+  color: #333;
+  font-weight: 600;
+  border-left: 4px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.account-nav a:hover {
+  background-color: var(--surface);
+  color: var(--accent);
+}
+
+.account-nav a.active {
+  border-left-color: var(--green);
+  background-color: #f0fff0;
+  color: var(--green);
+}
+
+.account-nav i {
+  margin-right: 0.8rem;
+  width: 20px;
+  stroke-width: 2.5;
+}
+
+/* --- Section Cards --- */
+.account-section {
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  border: 1px solid rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+  border-bottom: 1px solid #eee;
+}
+
+.section-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-family: var(--font-heading);
+  color: var(--green);
+}
+
+.section-body {
+  padding: 1.5rem;
+}
+
+/* --- Form Styling --- */
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+.form-group label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* Unified style for inputs and selects */
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group input[type="tel"],
+.form-group select {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background-color: #fff;
+  font-size: 1rem;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(46, 125, 50, 0.15);
+}
+
+/* Style for disabled fields to look read-only */
+.form-group input:disabled,
+.form-group select:disabled {
+  background-color: #f7f7f7;
+  border-color: #e0e0e0;
+  color: #555;
+  cursor: not-allowed;
+}
+
+/* --- Action Buttons --- */
+.form-actions {
+  margin-top: 1.5rem;
+  text-align: right;
+}
+
+
+/* --- Order History Card --- */
+.order-card {
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+}
+.order-code {
+    font-weight: 700;
+    font-size: 1.1em;
+    color: var(--green);
+}
+.order-date {
+    font-size: 0.9em;
+    color: #777;
+}
+.order-status {
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    color: #fff;
+    text-transform: capitalize;
+}
+/* Status colors updated to match theme */
+.status-menunggu-konfirmasi { background-color: #f39c12; }
+.status-diproses { background-color: #3498db; }
+.status-dalam-pengiriman { background-color: #8e44ad; }
+.status-selesai { background-color: var(--accent); }
+.status-dibatalkan { background-color: #e74c3c; }
+
+
+.order-body {
+    padding: 10px 0;
+}
+
+.order-body .item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #f5f5f5;
+}
+.order-body .item:last-child {
+    border-bottom: none;
+}
+.order-body .item-info {
+    flex-grow: 1;
+}
+.order-body .item-name {
+    font-weight: 600;
+}
+.order-body .item-qty {
+    font-size: 0.9em;
+    color: #777;
+}
+.order-body .item-total {
+    font-weight: 600;
+    color: #333;
+}
+.order-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid #eee;
+}
+.order-receipt {
+    font-size: 0.9em;
+    color: #555;
+}
+.order-total {
+    text-align: right;
+}
+.order-total strong {
+    display: block;
+    font-weight: 600;
+    font-size: 0.9em;
+    color: #777;
+}
+.order-total span {
+    font-weight: 700;
+    font-size: 1.2em;
+    color: var(--green);
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .account-layout {
+    flex-direction: column;
+  }
+
+  .account-sidebar {
+    width: 100%;
+    flex: 0 0 auto;
+    position: static;
+  }
 }
