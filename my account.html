@@ -26,7 +26,10 @@
           <nav class="account-nav">
             <ul>
               <li>
-                <a href="#" class="active"><i data-feather="user"></i> Profil Saya</a>
+                <a href="#" :class="{ 'active': activeView === 'profile' }" @click.prevent="activeView = 'profile'"><i data-feather="user"></i> Profil Saya</a>
+              </li>
+              <li>
+                <a href="#" :class="{ 'active': activeView === 'history' }" @click.prevent="activeView = 'history'"><i data-feather="shopping-bag"></i> Riwayat Pesanan</a>
               </li>
               <li>
                 <a href="#" @click.prevent="handleLogout()"><i data-feather="log-out"></i> Keluar</a>
@@ -36,101 +39,150 @@
         </aside>
 
         <section class="account-main">
-          <!-- Profile Details Section -->
-          <div class="account-section">
-            <div class="section-header">
-              <h2>Profil Saya</h2>
-              <button class="btn btn-sm btn-outline" @click="editProfileMode = !editProfileMode" x-text="editProfileMode ? 'Batal' : 'Ubah Profil'"></button>
+          <!-- Profile View -->
+          <div x-show="activeView === 'profile'" x-transition>
+            <!-- Profile Details Section -->
+            <div class="account-section">
+              <div class="section-header">
+                <h2>Profil Saya</h2>
+                <button class="btn btn-sm btn-outline" @click="editProfileMode = !editProfileMode" x-text="editProfileMode ? 'Batal' : 'Ubah Profil'"></button>
+              </div>
+              <div class="section-body">
+                <form class="account-form" @submit.prevent="updateProfile">
+                  <div class="form-group">
+                    <label for="fullName">Nama Lengkap</label>
+                    <input type="text" id="fullName" x-model="profile.full_name" :disabled="!editProfileMode" />
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Alamat Email</label>
+                    <input type="email" id="email" :value="user ? user.email : ''" disabled />
+                  </div>
+                  <div class="form-group">
+                    <label for="phone_number">Nomor Telepon</label>
+                    <input type="tel" id="phone_number" x-model="profile.phone_number" :disabled="!editProfileMode" />
+                  </div>
+                  <div class="form-actions" x-show="editProfileMode">
+                    <button type="submit" class="btn btn-primary" :disabled="loading">
+                      <span x-show="!loading">Simpan Perubahan</span>
+                      <span x-show="loading">Menyimpan...</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
-            <div class="section-body">
-              <form class="account-form" @submit.prevent="updateProfile">
-                <div class="form-group">
-                  <label for="fullName">Nama Lengkap</label>
-                  <input type="text" id="fullName" x-model="profile.full_name" :disabled="!editProfileMode" />
-                </div>
-                <div class="form-group">
-                  <label for="email">Alamat Email</label>
-                  <input type="email" id="email" :value="user ? user.email : ''" disabled />
-                </div>
-                <div class="form-group">
-                  <label for="phone_number">Nomor Telepon</label>
-                  <input type="tel" id="phone_number" x-model="profile.phone_number" :disabled="!editProfileMode" />
-                </div>
-                <div class="form-actions" x-show="editProfileMode">
-                  <button type="submit" class="btn btn-primary" :disabled="loading">
-                    <span x-show="!loading">Simpan Perubahan</span>
-                    <span x-show="loading">Menyimpan...</span>
-                  </button>
-                </div>
-              </form>
+
+            <!-- Address Section -->
+            <div class="account-section">
+              <div class="section-header">
+                <h2>Alamat Pengiriman</h2>
+                <button class="btn btn-sm btn-outline" @click="editAddressMode = !editAddressMode" x-text="editAddressMode ? 'Batal' : 'Ubah Alamat'"></button>
+              </div>
+              <div class="section-body">
+                <form class="account-form" @submit.prevent="updateAddress">
+                  <div class="form-group">
+                    <label for="province">Provinsi</label>
+                    <select id="province" x-model="selectedProvince" @change="fetchRegencies" :disabled="!editAddressMode">
+                      <option value="">Pilih Provinsi</option>
+                      <template x-for="province in provinces" :key="province.id">
+                        <option :value="province.id" x-text="province.name"></option>
+                      </template>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="regency">Kota/Kabupaten</label>
+                    <select id="regency" x-model="selectedRegency" @change="fetchDistricts" :disabled="!editAddressMode || !selectedProvince">
+                      <option value="">Pilih Kota/Kabupaten</option>
+                      <template x-for="regency in regencies" :key="regency.id">
+                        <option :value="regency.id" x-text="regency.name"></option>
+                      </template>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="district">Kecamatan</label>
+                    <select id="district" x-model="selectedDistrict" @change="fetchVillages" :disabled="!editAddressMode || !selectedRegency">
+                      <option value="">Pilih Kecamatan</option>
+                      <template x-for="district in districts" :key="district.id">
+                        <option :value="district.id" x-text="district.name"></option>
+                      </template>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="village">Kelurahan/Desa</label>
+                    <select id="village" x-model="selectedVillage" @change="updateProfileVillage" :disabled="!editAddressMode || !selectedDistrict">
+                      <option value="">Pilih Kelurahan/Desa</option>
+                      <template x-for="village in villages" :key="village.id">
+                        <option :value="village.id" x-text="village.name"></option>
+                      </template>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="address">Nama Jalan, Gedung, No. Rumah</label>
+                    <input type="text" id="address" x-model="profile.address" :disabled="!editAddressMode" />
+                  </div>
+                  <div class="form-group">
+                    <label for="postalCode">Kode Pos</label>
+                    <input type="text" id="postalCode" x-model="profile.postal_code" :disabled="!editAddressMode" />
+                  </div>
+                  <div class="form-group" x-show="editAddressMode">
+                    <label>Pinpoint Lokasi</label>
+                    <div id="map" style="height: 400px; width: 100%;"></div>
+                    <input type="hidden" id="latitude" x-model="profile.latitude" />
+                    <input type="hidden" id="longitude" x-model="profile.longitude" />
+                  </div>
+                  <div class="form-actions" x-show="editAddressMode">
+                    <button type="submit" class="btn btn-primary" :disabled="loading">
+                      <span x-show="!loading">Simpan Alamat</span>
+                      <span x-show="loading">Menyimpan...</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
           </div>
 
-          <!-- Address Section -->
-          <div class="account-section">
-            <div class="section-header">
-              <h2>Alamat Pengiriman</h2>
-              <button class="btn btn-sm btn-outline" @click="editAddressMode = !editAddressMode" x-text="editAddressMode ? 'Batal' : 'Ubah Alamat'"></button>
-            </div>
-            <div class="section-body">
-              <form class="account-form" @submit.prevent="updateAddress">
-                <div class="form-group">
-                  <label for="province">Provinsi</label>
-                  <select id="province" x-model="selectedProvince" @change="fetchRegencies" :disabled="!editAddressMode">
-                    <option value="">Pilih Provinsi</option>
-                    <template x-for="province in provinces" :key="province.id">
-                      <option :value="province.id" x-text="province.name"></option>
-                    </template>
-                  </select>
+          <!-- Order History View -->
+          <div x-show="activeView === 'history'" x-transition>
+            <div class="account-section">
+              <div class="section-header">
+                <h2>Riwayat Pesanan Saya</h2>
+              </div>
+              <div class="section-body">
+                <div id="order-list-container">
+                  <p x-show="loading">Memuat riwayat pesanan...</p>
+                  <p x-show="!loading && orders.length === 0">Anda belum memiliki riwayat pesanan.</p>
+                  <template x-for="order in orders" :key="order.id">
+                    <div class="order-card">
+                      <div class="order-header">
+                        <div>
+                          <div class="order-code" x-text="order.order_code"></div>
+                          <div class="order-date" x-text="new Date(order.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })"></div>
+                        </div>
+                        <div class="order-status" :class="`status-${order.status.toLowerCase().replace(' ', '-')}`" x-text="order.status"></div>
+                      </div>
+                      <div class="order-body">
+                        <template x-for="item in order.order_details" :key="item.id">
+                          <div class="item">
+                            <div class="item-info">
+                              <div class="item-name" x-text="item.name"></div>
+                              <div class="item-qty" x-text="`Kuantitas: ${item.quantity}`"></div>
+                            </div>
+                            <div class="item-total" x-text="`Rp ${(item.price * item.quantity).toLocaleString('id-ID')}`"></div>
+                          </div>
+                        </template>
+                      </div>
+                      <div class="order-footer">
+                          <div x-show="order.shipping_receipt" class="order-receipt">
+                              <strong>No. Resi:</strong> <span x-text="order.shipping_receipt"></span>
+                          </div>
+                          <div class="order-total">
+                              <strong>Total Pesanan:</strong>
+                              <span x-text="`Rp ${order.total_amount.toLocaleString('id-ID')}`"></span>
+                          </div>
+                      </div>
+                    </div>
+                  </template>
                 </div>
-                <div class="form-group">
-                  <label for="regency">Kota/Kabupaten</label>
-                  <select id="regency" x-model="selectedRegency" @change="fetchDistricts" :disabled="!editAddressMode || !selectedProvince">
-                    <option value="">Pilih Kota/Kabupaten</option>
-                    <template x-for="regency in regencies" :key="regency.id">
-                      <option :value="regency.id" x-text="regency.name"></option>
-                    </template>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="district">Kecamatan</label>
-                  <select id="district" x-model="selectedDistrict" @change="fetchVillages" :disabled="!editAddressMode || !selectedRegency">
-                    <option value="">Pilih Kecamatan</option>
-                    <template x-for="district in districts" :key="district.id">
-                      <option :value="district.id" x-text="district.name"></option>
-                    </template>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="village">Kelurahan/Desa</label>
-                  <select id="village" x-model="selectedVillage" @change="updateProfileVillage" :disabled="!editAddressMode || !selectedDistrict">
-                    <option value="">Pilih Kelurahan/Desa</option>
-                    <template x-for="village in villages" :key="village.id">
-                      <option :value="village.id" x-text="village.name"></option>
-                    </template>
-                  </select>
-                </div>
-                <div class="form-group">
-                  <label for="address">Nama Jalan, Gedung, No. Rumah</label>
-                  <input type="text" id="address" x-model="profile.address" :disabled="!editAddressMode" />
-                </div>
-                <div class="form-group">
-                  <label for="postalCode">Kode Pos</label>
-                  <input type="text" id="postalCode" x-model="profile.postal_code" :disabled="!editAddressMode" />
-                </div>
-                <div class="form-group" x-show="editAddressMode">
-                  <label>Pinpoint Lokasi</label>
-                  <div id="map" style="height: 400px; width: 100%;"></div>
-                  <input type="hidden" id="latitude" x-model="profile.latitude" />
-                  <input type="hidden" id="longitude" x-model="profile.longitude" />
-                </div>
-                <div class="form-actions" x-show="editAddressMode">
-                  <button type="submit" class="btn btn-primary" :disabled="loading">
-                    <span x-show="!loading">Simpan Alamat</span>
-                    <span x-show="loading">Menyimpan...</span>
-                  </button>
-                </div>
-              </form>
+              </div>
             </div>
           </div>
         </section>
