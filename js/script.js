@@ -1,25 +1,45 @@
 // ================== SIDEBAR TOGGLE (MOBILE) ==================
-const mobileMenuSidebar = document.getElementById("categorySidebar"); // Nama unik
-const menuToggle = document.getElementById("menu-toggle");
+function setupSidebarToggle() {
+  const mobileMenuSidebar = document.getElementById("categorySidebar");
+  const menuToggle = document.getElementById("menu-toggle");
 
-if (menuToggle && mobileMenuSidebar) {
-  menuToggle.addEventListener("click", (e) => {
-    e.stopPropagation();
-    mobileMenuSidebar.classList.toggle("mobile-active"); // Ganti
-    document.body.classList.toggle("sidebar-open");
-  });
+  if (menuToggle && mobileMenuSidebar) {
+    menuToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      mobileMenuSidebar.classList.toggle("mobile-active");
+      document.body.classList.toggle("sidebar-open");
+    });
 
-  // Klik di luar sidebar → tutup
-  document.addEventListener("click", (e) => {
-    if (
-      !mobileMenuSidebar.contains(e.target) && // Ganti
-      !menuToggle.contains(e.target) &&
-      mobileMenuSidebar.classList.contains("mobile-active") // Ganti
-    ) {
-      mobileMenuSidebar.classList.remove("mobile-active"); // Ganti
-      document.body.classList.remove("sidebar-open");
+    document.addEventListener("click", (e) => {
+      if (
+        mobileMenuSidebar.classList.contains("mobile-active") &&
+        !mobileMenuSidebar.contains(e.target) &&
+        !menuToggle.contains(e.target)
+      ) {
+        mobileMenuSidebar.classList.remove("mobile-active");
+        document.body.classList.remove("sidebar-open");
+      }
+    });
+  }
+}
+
+// Gunakan MutationObserver untuk mendeteksi kapan header dimuat
+const headerContainer = document.getElementById("header-include");
+if (headerContainer) {
+  const observer = new MutationObserver((mutationsList, observer) => {
+    for (const mutation of mutationsList) {
+      if (mutation.type === 'childList') {
+        const menuToggle = document.getElementById("menu-toggle");
+        if (menuToggle) {
+          setupSidebarToggle();
+          observer.disconnect(); // Hentikan observasi setelah tombol ditemukan
+          break;
+        }
+      }
     }
   });
+
+  observer.observe(headerContainer, { childList: true, subtree: true });
 }
 
 // ================== COLLAPSE SIDEBAR (DESKTOP MODE) ==================
