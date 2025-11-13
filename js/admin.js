@@ -1,15 +1,14 @@
 // js/admin.js
 
 document.addEventListener('DOMContentLoaded', async () => {
-    // These elements are expected to exist. If they don't, the page is fundamentally broken.
+    // Elemen utama
     const ordersTableBody = document.getElementById('orders-table-body');
     const loadingMessage = document.getElementById('loading-message');
+    const adminMessageContainer = document.getElementById('admin-message-container');
 
     /**
-     * Displays a formatted message in the admin message container.
-     * If the container is not found, it falls back to a standard alert.
-     * @param {string} title The title of the message.
-     * @param {string} message The HTML content of the message.
+     * Menampilkan pesan ke admin di container khusus.
+     * Jika container tidak ditemukan, fallback ke alert().
      */
     function showAdminMessage(title, message) {
         const container = document.getElementById('admin-message-container');
@@ -22,14 +21,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             `;
             container.style.display = 'block';
         } else {
-            // Fallback if the container element doesn't exist for some reason.
             console.error('Admin message container not found. Falling back to alert.');
             alert(`${title}\n\n${message.replace(/<br>/g, '\n').replace(/<strong>/g, '').replace(/<\/strong>/g, '')}`);
         }
     }
 
+    /**
+     * Mengambil daftar pesanan dari Supabase.
+     */
     async function fetchOrders() {
         try {
+            // Ambil semua pesanan + data profil pelanggan (nama & kontak)
             const { data: orders, error } = await supabase
                 .from('orders')
                 .select(`
@@ -43,11 +45,11 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             if (error) throw error;
 
-            // Hide loading message as soon as we get a response
-            if(loadingMessage) loadingMessage.style.display = 'none';
+            if (loadingMessage) loadingMessage.style.display = 'none';
 
+            // Jika tidak ada pesanan
             if (!orders || orders.length === 0) {
-                if(loadingMessage) loadingMessage.textContent = 'Tidak ada pesanan yang ditemukan.';
+                if (loadingMessage) loadingMessage.textContent = 'Tidak ada pesanan yang ditemukan.';
                 showAdminMessage(
                     'Tidak Ada Pesanan Ditemukan',
                     'Ini bisa terjadi karena beberapa alasan:<br>' +
@@ -62,9 +64,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         } catch (error) {
             console.error('Error fetching orders:', error);
-            if(loadingMessage) loadingMessage.textContent = 'Gagal memuat pesanan.';
-
-            // This is the critical part that will now show the REAL error
+            if (loadingMessage) loadingMessage.textContent = 'Gagal memuat pesanan.';
             showAdminMessage(
                 'Gagal Memuat Pesanan',
                 `Terjadi kesalahan saat mengambil data pesanan: <strong>${error.message}</strong><br>` +
@@ -73,24 +73,30 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    /**
+     * Render data pesanan ke tabel admin.
+     */
     function renderOrders(orders) {
-        if (!ordersTableBody) return; // Guard against missing table body
-        ordersTableBody.innerHTML = ''; // Clear existing rows
+        if (!ordersTableBody) return;
+        ordersTableBody.innerHTML = '';
 
         orders.forEach(order => {
             const tr = document.createElement('tr');
 
+            // Ringkasan item
             let summary = 'Tidak ada item';
             const orderItems = order.order_details || order.items;
             if (orderItems && orderItems.length > 0) {
                 summary = orderItems.map(item => `${item.name} (x${item.quantity})`).join(', ');
             }
 
+            // Informasi pelanggan
             const profile = order.profiles;
             const customerInfo = profile
                 ? `${profile.full_name || 'Nama tidak ada'}<br><small>${profile.phone_number || 'No HP tidak ada'}</small>`
                 : 'Pelanggan tidak ditemukan';
 
+            // Template baris tabel
             tr.innerHTML = `
                 <td>${order.order_code || order.id}</td>
                 <td>${customerInfo}</td>
@@ -106,9 +112,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
+    /**
+     * Menambahkan tombol aksi sesuai status pesanan.
+     */
     function addActions(cell, order) {
         if (!cell) return;
-        cell.innerHTML = ''; // Clear previous buttons
+        cell.innerHTML = '';
 
         const statusTransitions = {
             'Menunggu Konfirmasi': ['Diproses', 'Ditolak'],
@@ -128,6 +137,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     }
 
+    /**
+     * Membuat tombol dinamis.
+     */
     function createButton(text, onClick) {
         const button = document.createElement('button');
         button.textContent = text;
@@ -135,6 +147,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         return button;
     }
 
+    /**
+     * Update status pesanan di Supabase.
+     */
     async function updateOrderStatus(orderId, newStatus) {
         const { error } = await supabase
             .from('orders')
@@ -146,9 +161,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             alert('Gagal memperbarui status pesanan.');
         } else {
             alert('Status pesanan berhasil diperbarui.');
-            fetchOrders(); // Refresh the list
+            fetchOrders(); // Refresh data
         }
     }
 
+    // Muat data awal
     fetchOrders();
 });
