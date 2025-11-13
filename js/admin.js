@@ -1,7 +1,7 @@
 // js/admin.js
 
 document.addEventListener('DOMContentLoaded', async () => {
-    const ordersTableBody = document.getElementById('orders-table-body');
+    const ordersGrid = document.getElementById('orders-grid');
     const loadingMessage = document.getElementById('loading-message');
     const adminMessageContainer = document.getElementById('admin-message-container');
 
@@ -57,37 +57,49 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function renderOrders(orders) {
-        ordersTableBody.innerHTML = ''; // Hapus isi tabel sebelumnya
+        ordersGrid.innerHTML = ''; // Hapus kartu sebelumnya
 
         orders.forEach(order => {
-            const tr = document.createElement('tr');
+            const card = document.createElement('div');
+            card.className = 'order-card';
 
             // Ringkasan item
-            let summary = 'Tidak ada item';
+            let itemsList = '<li>Tidak ada item</li>';
             const orderItems = order.order_details || order.items;
             if (orderItems && orderItems.length > 0) {
-                summary = orderItems.map(item => `${item.name} (x${item.quantity})`).join(', ');
+                itemsList = orderItems.map(item => `<li>${item.name} (x${item.quantity})</li>`).join('');
             }
 
             // Informasi pelanggan & kontak
             const profile = order.profiles;
             const customerInfo = profile
-                ? `${profile.full_name || 'Nama tidak ada'}<br><small>${profile.phone_number || 'No HP tidak ada'}</small>`
+                ? `${profile.full_name || 'Nama tidak ada'} <br><small>(${profile.phone_number || 'No HP tidak ada'})</small>`
                 : 'Pelanggan tidak ditemukan';
 
-            // Template baris tabel
-            tr.innerHTML = `
-                <td>${order.order_code || order.id}</td>
-                <td>${customerInfo}</td>
-                <td>${summary}</td>
-                <td><span class="status-${order.status.toLowerCase().replace(/\s+/g, '-')}">${order.status}</span></td>
-                <td class="action-buttons"></td>
+            // Format tanggal
+            const orderDate = new Date(order.created_at).toLocaleDateString('id-ID', {
+                day: '2-digit', month: 'long', year: 'numeric'
+            });
+
+            // Template kartu
+            card.innerHTML = `
+                <div class="card-header">
+                    <h3>Pesanan #${order.order_code || order.id}</h3>
+                    <span class="status status-${order.status.toLowerCase().replace(/\s+/g, '-')}">${order.status}</span>
+                </div>
+                <div class="card-body">
+                    <p><strong>Tanggal:</strong> ${orderDate}</p>
+                    <p><strong>Pelanggan:</strong> ${customerInfo}</p>
+                    <p><strong>Item:</strong></p>
+                    <ul>${itemsList}</ul>
+                </div>
+                <div class="card-footer action-buttons"></div>
             `;
 
-            const actionsCell = tr.querySelector('.action-buttons');
-            addActions(actionsCell, order);
+            const actionsContainer = card.querySelector('.action-buttons');
+            addActions(actionsContainer, order);
 
-            ordersTableBody.appendChild(tr);
+            ordersGrid.appendChild(card);
         });
     }
 

@@ -97,6 +97,10 @@ body {
 }
 
 /* ================== LAYOUT ================== */
+.main-content {
+  margin: 2rem;
+}
+
 .layout {
   display: grid;
   grid-template-columns: 280px 1fr;
@@ -515,8 +519,7 @@ body {
   border-radius: var(--radius);
   box-shadow: 0 4px 12px var(--shadow);
   text-align: center;
-  margin-left: 10rem;
-  margin-right: 10rem;
+  margin: 2rem;
 }
 
 .preview h2 {
@@ -528,7 +531,6 @@ body {
 /* MODERN CONTACT PAGE STYLES */
 
 .contact-page {
-  margin: 2rem;
   padding-top: 0rem;
 }
 
@@ -556,7 +558,7 @@ body {
   /* Default: 2 kolom di tablet, 1 di mobile */
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
-  margin: 2rem;
+  margin: 2rem 0;
 }
 
 .news-section .section-title {
