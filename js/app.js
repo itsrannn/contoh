@@ -8,8 +8,8 @@ const allProducts = [
     category: "benih",
     price: 12000,
     img: "img/general/Cabai Carolina.png",
-    char: "Benih Unggul <br> - Tingkat Pedas: Sangat Tinggi <br> - Perawatan: Sedang <br> - Masa Panen: 90 hari",
-    desc: "Benih Cabai Carolina Reaper, dikenal sebagai salah satu cabai terpedas di dunia. Cocok untuk Anda yang menyukai tantangan rasa pedas ekstrem. Perlu perawatan ekstra untuk hasil optimal.",
+    char: "1 pack berisi ±12 biji <br> - Benih Unggul <br> - Tingkat Pedas: Sangat Tinggi (±2.200.000 SHU) <br> - Perawatan: Sedang <br> - Masa Panen: ±90 hari",
+    desc: "Benih Cabai Carolina Reaper, hasil persilangan antara Habanero dan Ghost Pepper, dikenal sebagai salah satu cabai terpedas di dunia dengan tingkat kepedasan mencapai sekitar 2,2 juta Scoville Heat Units (SHU). Cabai ini memiliki bentuk keriput dan ekor khas pada ujung buahnya. Cocok untuk para pecinta pedas ekstrem dan penggemar koleksi cabai langka. Tumbuh optimal di daerah tropis dengan sinar matahari penuh, penyiraman rutin, serta pemupukan organik seimbang untuk hasil terbaik.",
   },
   {
     id: 2,
@@ -17,8 +17,8 @@ const allProducts = [
     category: "benih",
     price: 12000,
     img: "img/general/Cabai Fatalii.png",
-    char: "Rasa Manis <br> - Mudah Tumbuh <br> - Ideal untuk Pot <br> - Panen Cepat",
-    desc: "Benih Tomat Cherry (Solanum lycopersicum var. cerasiforme) menghasilkan buah tomat kecil yang manis dan segar. Sangat mudah ditanam, baik di lahan maupun di dalam pot, dan cepat berbuah.",
+    char: "1 pack berisi ±12 biji <br> - Rasa Pedas & Sitrus <br> - Tingkat Pedas: 125.000–400.000 SHU <br> - Asal: Afrika Tengah <br> - Panen: ±80 hari",
+    desc: "Benih Cabai Fatalii berasal dari Afrika Tengah dan terkenal dengan rasa pedas tajam berpadu aroma sitrus yang segar. Buahnya berwarna kuning cerah ketika matang, cocok untuk saus pedas, sambal fermentasi, atau olahan cabai segar. Varietas ini mudah tumbuh di iklim tropis, cepat berbuah, dan memiliki produktivitas tinggi. Cocok untuk ditanam di pot maupun lahan terbuka dengan paparan sinar matahari penuh.",
   },
   {
     id: 3,
@@ -26,17 +26,17 @@ const allProducts = [
     category: "benih",
     price: 15000,
     img: "img/general/Cabai Ghost Pepper.png",
-    char: "Daun Renyah <br> - Cepat Tumbuh <br> - Tahan Suhu Sejuk <br> - Populer untuk Salad",
-    desc: "Benih Selada (Lactuca sativa) jenis Lollo Rossa. Memiliki daun keriting berwarna hijau dengan semburat merah yang cantik. Teksturnya renyah dan rasanya segar, sempurna untuk salad.",
+    char: "1 pack berisi ±12 biji <br> - Super Pedas <br> - Tingkat Pedas: ±1.041.427 SHU <br> - Asal: India Timur Laut <br> - Panen: ±100 hari",
+    desc: "Benih Cabai Ghost Pepper atau Bhut Jolokia berasal dari Assam, India, dan pernah menyandang gelar cabai terpedas di dunia. Dengan tingkat pedas lebih dari 1 juta SHU, cabai ini memberikan sensasi pedas yang datang perlahan namun bertahan lama. Memiliki warna merah menyala dengan aroma khas buah tropis. Cocok untuk olahan saus super pedas dan sambal bubuk. Dapat tumbuh baik di iklim hangat dengan sinar matahari penuh.",
   },
   {
     id: 4,
-    name: "Benih Cabai Habanero.png",
+    name: "Benih Cabai Habanero",
     category: "benih",
     price: 10000,
     img: "img/general/Cabai Habanero.png",
-    char: "Kaya Nutrisi <br> - Tahan Hama <br> - Suhu Sejuk <br> - Ukuran Kepala Sedang",
-    desc: "Benih Brokoli varietas Green Magic. Menghasilkan kepala bunga yang padat dan berwarna hijau gelap. Dikenal kaya akan vitamin dan mineral, serta memiliki ketahanan yang baik terhadap hama.",
+    char: "1 pack berisi ±12 biji <br> - Pedas Buah Tropis <br> - Tingkat Pedas: 100.000–350.000 SHU <br> - Warna: Oranye/merah <br> - Panen: ±80 hari",
+    desc: "Benih Cabai Habanero merupakan varietas populer dari Meksiko dan Karibia. Dikenal dengan rasa pedas tajam yang berpadu aroma buah tropis seperti mangga dan pepaya. Buahnya kecil dan berwarna oranye cerah saat matang, sangat cocok untuk saus pedas dan bumbu masakan. Tumbuh optimal pada suhu hangat dan membutuhkan penyiraman teratur dengan tanah berdrainase baik.",
   },
   {
     id: 5,
@@ -44,8 +44,8 @@ const allProducts = [
     category: "benih",
     price: 20000,
     img: "img/general/Cabai Jalapeno.png",
-    char: "Kompos Murni <br> - Menyuburkan Tanah <br> - Ramah Lingkungan <br> - 5kg",
-    desc: "Pupuk organik murni dari kompos berkualitas tinggi. Membantu memperbaiki struktur tanah, meningkatkan ketersediaan unsur hara, dan ramah lingkungan. Cocok untuk semua jenis tanaman.",
+    char: "1 pack berisi ±12 biji <br> - Pedas Sedang <br> - Tingkat Pedas: 2.500–8.000 SHU <br> - Asal: Meksiko <br> - Panen: ±75 hari",
+    desc: "Benih Cabai Jalapeno adalah varietas klasik asal Meksiko dengan rasa pedas sedang dan aroma segar. Cabai ini sering digunakan dalam pizza, taco, dan berbagai masakan internasional. Buahnya berwarna hijau tua dan berubah merah saat matang, berukuran sekitar 7–9 cm. Cocok untuk ditanam di pot atau kebun kecil dengan hasil panen melimpah dan perawatan mudah.",
   },
   {
     id: 6,
@@ -53,8 +53,8 @@ const allProducts = [
     category: "benih",
     price: 28000,
     img: "img/general/Cabai Naga Viper.png",
-    char: "Kompos Murni <br> - Menyuburkan Tanah <br> - Ramah Lingkungan <br> - 5kg",
-    desc: "Pupuk organik murni dari kompos berkualitas tinggi. Membantu memperbaiki struktur tanah, meningkatkan ketersediaan unsur hara, dan ramah lingkungan. Cocok untuk semua jenis tanaman.",
+    char: "1 pack berisi ±12 biji <br> - Super Hibrida <br> - Tingkat Pedas: ±1.382.118 SHU <br> - Asal: Inggris <br> - Panen: ±95 hari",
+    desc: "Benih Cabai Naga Viper merupakan hasil persilangan antara tiga varietas ekstrem: Naga Morich, Bhut Jolokia, dan Trinidad Scorpion. Dikenal karena tingkat kepedasannya yang luar biasa tinggi dengan sensasi pedas bertahap. Buahnya berwarna merah tua dengan tekstur keriput khas. Cocok untuk kolektor cabai langka atau penggemar cabai ekstrem. Tumbuh baik di iklim hangat dengan penyinaran penuh.",
   },
   {
     id: 7,
@@ -62,8 +62,8 @@ const allProducts = [
     category: "benih",
     price: 17000,
     img: "img/general/Cabai Orange Drop.png",
-    char: "Kompos Murni <br> - Menyuburkan Tanah <br> - Ramah Lingkungan <br> - 5kg",
-    desc: "Pupuk organik murni dari kompos berkualitas tinggi. Membantu memperbaiki struktur tanah, meningkatkan ketersediaan unsur hara, dan ramah lingkungan. Cocok untuk semua jenis tanaman.",
+    char: "1 pack berisi ±12 biji <br> - Cabai Mini <br> - Warna Oranye Cerah <br> - Pedas Menyegarkan <br> - Panen: ±85 hari",
+    desc: "Benih Cabai Orange Drop menghasilkan cabai mini berwarna oranye cerah yang menarik. Rasa pedasnya ringan hingga sedang dengan aroma segar khas cabai muda. Selain untuk konsumsi, varietas ini juga sering dijadikan tanaman hias karena tampilannya yang estetik dan produktif. Cocok untuk ditanam di pot hias di teras atau balkon.",
   },
   {
     id: 8,
@@ -71,8 +71,8 @@ const allProducts = [
     category: "benih",
     price: 25000,
     img: "img/general/Cabai Scotch Bonnet.png",
-    char: "Kompos Murni <br> - Menyuburkan Tanah <br> - Ramah Lingkungan <br> - 5kg",
-    desc: "Pupuk organik murni dari kompos berkualitas tinggi. Membantu memperbaiki struktur tanah, meningkatkan ketersediaan unsur hara, dan ramah lingkungan. Cocok untuk semua jenis tanaman.",
+    char: "1 pack berisi ±12 biji <br> - Pedas Tropis <br> - Tingkat Pedas: 100.000–350.000 SHU <br> - Asal: Karibia <br> - Panen: ±90 hari",
+    desc: "Benih Cabai Scotch Bonnet berasal dari Kepulauan Karibia dan sangat populer dalam masakan Jamaika. Cabai ini memiliki bentuk menyerupai topi (bonnet) dengan warna kuning hingga merah cerah saat matang. Rasa pedasnya tajam dengan aroma buah tropis seperti nanas dan mangga. Cocok untuk saus pedas, masakan panggang, dan sambal khas Karibia.",
   },
   {
     id: 9,
@@ -80,8 +80,8 @@ const allProducts = [
     category: "benih",
     price: 15000,
     img: "img/general/Cabai Thai Chili.png",
-    char: "Kompos Murni <br> - Menyuburkan Tanah <br> - Ramah Lingkungan <br> - 5kg",
-    desc: "Pupuk organik murni dari kompos berkualitas tinggi. Membantu memperbaiki struktur tanah, meningkatkan ketersediaan unsur hara, dan ramah lingkungan. Cocok untuk semua jenis tanaman.",
+    char: "1 pack berisi ±12 biji <br> - Pedas Tajam <br> - Tingkat Pedas: 50.000–100.000 SHU <br> - Ukuran Kecil <br> - Panen: ±75 hari",
+    desc: "Benih Cabai Thai Chili (Prik Kee Noo) merupakan cabai khas Asia Tenggara dengan rasa pedas tajam dan aroma segar. Sering digunakan dalam kuliner Thailand dan Indonesia seperti tumisan, sambal, dan sup pedas. Ukurannya kecil namun sangat produktif. Dapat tumbuh baik di pot maupun lahan, tahan panas, dan mudah perawatannya.",
   },
   {
     id: 15,
@@ -90,7 +90,7 @@ const allProducts = [
     price: 30000,
     img: "img/general/Pupuk X.png",
     char: "Sumber Nitrogen <br> - Non-Organik <br> - Merangsang Daun <br> - 1kg",
-    desc: "Pupuk ZA (Zwavelzure Ammoniak) adalah pupuk kimia yang kaya akan Nitrogen dan Sulfur. Sangat baik untuk merangsang pertumbuhan daun tanaman pada fase vegetatif.",
+    desc: "Pupuk ZA (Zwavelzure Ammoniak) merupakan pupuk kimia yang mengandung Nitrogen (21%) dan Sulfur (24%). Berfungsi utama untuk mempercepat pertumbuhan daun dan batang pada fase vegetatif. Sangat baik digunakan pada tanaman sayuran daun, padi, dan tanaman hias. Sebaiknya digunakan dengan dosis terukur dan tidak berlebihan.",
   },
   {
     id: 21,
@@ -99,7 +99,7 @@ const allProducts = [
     price: 7000,
     img: "img/general/Sekam Bakar.png",
     char: "Media Tanam <br> - Porositas Tinggi <br> - Steril <br> - 1 karung",
-    desc: "Sekam bakar adalah media tanam yang populer karena porositasnya yang tinggi, membuatnya tidak mudah padat dan baik untuk aerasi akar. Sudah disterilkan melalui proses pembakaran.",
+    desc: "Sekam bakar adalah hasil pembakaran sebagian kulit padi yang dijadikan media tanam dengan porositas tinggi. Mampu menjaga kelembapan dan sirkulasi udara di dalam tanah, serta membantu akar tanaman tumbuh lebih sehat. Sudah steril dari jamur dan hama, ideal untuk campuran tanah maupun media hidroponik.",
   },
   {
     id: 22,
@@ -108,7 +108,7 @@ const allProducts = [
     price: 3000,
     img: "img/general/Spons Hidroponik.png",
     char: "Media Semai <br> - Hidroponik <br> - Menyerap Air <br> - 1 Papan",
-    desc: "Spons khusus untuk media semai hidroponik. Mampu menahan air dengan baik namun tetap memberikan ruang bagi akar untuk bernapas. Ideal untuk memulai semaian.",
+    desc: "Spons khusus untuk penyemaian benih pada sistem hidroponik. Memiliki daya serap air tinggi namun tetap menjaga aerasi akar agar tidak tergenang. Cocok digunakan untuk semai sayuran daun seperti selada, bayam, dan kangkung. Dapat dipotong sesuai ukuran netpot atau tray semai.",
   },
   {
     id: 31,
@@ -117,7 +117,7 @@ const allProducts = [
     price: 38000,
     img: "img/general/Gunting Tanaman.png",
     char: "Stainless Steel <br> - Tajam & Presisi <br> - Ergonomis <br> - Anti Karat",
-    desc: "Gunting pangkas (pruning shears) berkualitas tinggi. Terbuat dari stainless steel yang tajam dan tahan karat. Didesain ergonomis agar nyaman digunakan untuk memotong dahan.",
+    desc: "Gunting pangkas berkualitas tinggi berbahan stainless steel yang tahan lama dan tajam. Dirancang dengan gagang ergonomis agar nyaman di tangan, cocok untuk memangkas ranting kecil, daun, atau bunga. Ideal digunakan untuk tanaman hias maupun kebun sayur.",
   },
   {
     id: 41,
@@ -125,18 +125,24 @@ const allProducts = [
     category: "promo",
     price: 75000,
     img: "img/general/Set Komplit.png",
-    char: "Stainless Steel <br> - Tajam & Presisi <br> - Ergonomis <br> - Anti Karat",
-    desc: "Gunting pangkas (pruning shears) berkualitas tinggi. Terbuat dari stainless steel yang tajam dan tahan karat. Didesain ergonomis agar nyaman digunakan untuk memotong dahan.",
+    char: "Peralatan Lengkap <br> - Termasuk Sekop, Sarung Tangan, dan Gunting <br> - Material Kuat <br> - Cocok untuk Pemula",
+    desc: "Set komplit berkebun berisi perlengkapan dasar seperti sekop mini, sarung tangan, gunting tanaman, dan garpu tanah. Terbuat dari bahan berkualitas tinggi dan desain ergonomis untuk kenyamanan berkebun. Ideal bagi pemula yang ingin memulai berkebun di rumah atau kebun kecil.",
   },
 ];
 
 // ==================== Data Berita Global ====================
-const allNews = [
+const allNews = 
+  [
   {
     id: 1,
     title: "5 Langkah Mudah Menanam Selada Hidroponik untuk Pemula",
-    summary:
-      "Pelajari panduan lengkap menanam selada air dengan sistem hidroponik di rumah. Cocok untuk pemula!",
+    summary: `
+Menanam selada hidroponik kini menjadi tren di kalangan pemula karena mudah dilakukan di rumah tanpa memerlukan lahan luas. Metode ini menggunakan air bernutrisi sebagai media utama, bukan tanah, sehingga lebih bersih dan hasil panennya lebih cepat. Menurut Arkademi (2024), sistem hidroponik yang paling cocok untuk pemula adalah sistem wick atau rakit apung karena mudah dirakit dan hemat biaya.
+
+Langkah pertama adalah memilih benih selada berkualitas dan menyemainya di media lembap seperti rockwool. Setelah tumbuh 2–3 daun sejati, bibit bisa dipindahkan ke sistem hidroponik. Pastikan media tanam tetap lembap dan terpapar cahaya cukup — jika di dalam ruangan, gunakan lampu grow light. Menurut QualityFarm.id, menjaga pH air di kisaran 5,5–6,5 serta EC nutrisi sesuai anjuran (sekitar 1.2–1.8 mS/cm) sangat penting agar akar menyerap nutrisi dengan optimal.
+
+Liputan6 (2023) menambahkan bahwa salah satu keunggulan hidroponik adalah efisiensi air hingga 90% dibanding metode konvensional. Selain itu, tanaman bebas dari gulma dan hama tanah. Tips tambahan: ganti larutan nutrisi secara rutin dan periksa akar agar tidak membusuk. Dengan perawatan yang tepat, selada siap panen dalam waktu 30–40 hari. Hidroponik bukan hanya hemat ruang, tapi juga membuka peluang usaha kecil di rumah.
+    `,
     category: "Tutorial",
     date: "10 Nov 2025",
     image: "img/coming soon.jpg",
@@ -144,13 +150,19 @@ const allNews = [
   {
     id: 2,
     title: "Nutrisi AB Mix: Rahasia Pertumbuhan Cepat Tanaman Hidroponik",
-    summary:
-      "Kenali kandungan dan cara menggunakan nutrisi AB Mix agar tanaman hidroponik tumbuh optimal!",
+    summary: `
+Nutrisi AB Mix adalah kunci utama dalam pertumbuhan tanaman hidroponik. Larutan ini terdiri dari dua bagian — A dan B — yang masing-masing mengandung unsur hara makro dan mikro penting. Berdasarkan penelitian dari Neliti (2019), keseimbangan kedua nutrisi ini berpengaruh langsung terhadap tinggi tanaman, jumlah daun, dan hasil panen. Nutrisi A umumnya berisi Nitrogen (N) dan Kalium (K), sedangkan B mengandung Fosfor (P), Sulfur (S), serta unsur mikro seperti Fe, Zn, dan Cu.
+
+Menurut Farmee.id, larutan AB Mix tidak boleh dicampur langsung dalam bentuk pekat karena bisa menyebabkan pengendapan dan menurunkan efektivitas nutrisi. Campurkan masing-masing dengan air terlebih dahulu, baru gabungkan ke dalam tangki utama. pH ideal untuk hidroponik berkisar 5,8–6,5, sementara EC (Electrical Conductivity) sekitar 1.5–2.0 mS/cm tergantung jenis tanaman.
+
+Agromedia.net menjelaskan, simpan AB Mix di tempat sejuk dan gelap untuk menjaga stabilitasnya. Tips tambahan: gunakan dosis yang sesuai fase tanaman — misalnya fase vegetatif memerlukan lebih banyak nitrogen, sementara fase berbunga dan berbuah memerlukan lebih banyak kalium dan fosfor. Untuk tanaman buah seperti cabai dan tomat, pilih AB Mix khusus buah. Dengan penggunaan yang benar, AB Mix mampu mempercepat pertumbuhan tanaman hingga 30% dibanding media tanah biasa, menjadikannya pilihan utama para pegiat hidroponik modern.
+    `,
     category: "Berita",
     date: "9 Nov 2025",
     image: "img/coming soon.jpg",
   },
 ];
+
 
 // ==================== NEWS RENDER FIX ====================
 function renderNewsCards(newsData) {
