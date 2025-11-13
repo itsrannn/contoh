@@ -6,9 +6,21 @@ document.addEventListener("DOMContentLoaded", async () => {
       const response = await fetch("components/header.html");
       headerContainer.innerHTML = await response.text();
 
+      // Cek apakah ini halaman index.html, jika iya, tambahkan tombol hamburger
+      if (window.location.pathname.endsWith("index.html") || window.location.pathname === "/") {
+        const topActions = headerContainer.querySelector(".top-actions");
+        if (topActions) {
+          const hamburgerBtn = document.createElement("button");
+          hamburgerBtn.id = "menu-toggle";
+          hamburgerBtn.className = "icon-btn";
+          hamburgerBtn.setAttribute("aria-label", "Buka Menu");
+          hamburgerBtn.innerHTML = '<i data-feather="menu"></i>';
+          topActions.appendChild(hamburgerBtn);
+        }
+      }
+
       // Jalankan feather icons di dalam header
       if (typeof feather !== "undefined") feather.replace();
-
     } catch (err) {
       console.error("Gagal memuat header:", err);
     }
