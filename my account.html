@@ -7,7 +7,6 @@
   <title>Akun Saya | Carita Hidroponik</title>
 
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/my account.css" />
 
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet" />
 
@@ -22,20 +21,15 @@
     <div class="container">
       <h1 class="page-title">Akun Saya</h1>
       <div class="account-layout">
+
         <aside class="account-sidebar">
-          <nav class="account-nav">
-            <ul>
-              <li>
-                <a href="my account.html" class="active"><i data-feather="user"></i> Profil Saya</a>
-              </li>
-              <li>
-                <a href="order-history.html"><i data-feather="shopping-bag"></i> Riwayat Pesanan</a>
-              </li>
-              <li>
-                <a href="#" @click.prevent="handleLogout()"><i data-feather="log-out"></i> Keluar</a>
-              </li>
-            </ul>
-          </nav>
+            <nav class="account-nav">
+                <ul>
+                    <li><a href="my account.html" class="active"><i data-feather="user"></i> Profil Saya</a></li>
+                    <li><a href="order-history.html"><i data-feather="shopping-bag"></i> Riwayat Pesanan</a></li>
+                    <li><a href="#" @click.prevent="handleLogout()"><i data-feather="log-out"></i> Keluar</a></li>
+                </ul>
+            </nav>
         </aside>
 
         <section class="account-main">
