@@ -135,13 +135,26 @@ const allNews =
   [
   {
     id: 1,
-    title: "5 Langkah Mudah Menanam Selada Hidroponik untuk Pemula",
+    title: "5 Langkah Mudah Menanam Cabai Carolina Hidroponik untuk Pemula",
     summary: `
-Menanam selada hidroponik kini menjadi tren di kalangan pemula karena mudah dilakukan di rumah tanpa memerlukan lahan luas. Metode ini menggunakan air bernutrisi sebagai media utama, bukan tanah, sehingga lebih bersih dan hasil panennya lebih cepat. Menurut Arkademi (2024), sistem hidroponik yang paling cocok untuk pemula adalah sistem wick atau rakit apung karena mudah dirakit dan hemat biaya.
+Cabai Carolina Reaper dikenal sebagai cabai terpedas di dunia, dengan tingkat kepedasan mencapai lebih dari 2,2 juta Scoville Heat Units (SHU). Meski ekstrem, cabai ini bisa ditanam di rumah menggunakan sistem hidroponik jika dilakukan dengan langkah yang benar. Berikut panduan lengkapnya:<br><br>
 
-Langkah pertama adalah memilih benih selada berkualitas dan menyemainya di media lembap seperti rockwool. Setelah tumbuh 2–3 daun sejati, bibit bisa dipindahkan ke sistem hidroponik. Pastikan media tanam tetap lembap dan terpapar cahaya cukup — jika di dalam ruangan, gunakan lampu grow light. Menurut QualityFarm.id, menjaga pH air di kisaran 5,5–6,5 serta EC nutrisi sesuai anjuran (sekitar 1.2–1.8 mS/cm) sangat penting agar akar menyerap nutrisi dengan optimal.
+<b>Langkah 1 – Pilih Benih Berkualitas:</b><br>
+Gunakan benih cabai Carolina Reaper unggul. Rendam benih selama 12 jam dalam air hangat untuk mempercepat perkecambahan, lalu semai di media rockwool lembap selama 7–10 hari hingga tumbuh 2 daun sejati.<br><br>
 
-Liputan6 (2023) menambahkan bahwa salah satu keunggulan hidroponik adalah efisiensi air hingga 90% dibanding metode konvensional. Selain itu, tanaman bebas dari gulma dan hama tanah. Tips tambahan: ganti larutan nutrisi secara rutin dan periksa akar agar tidak membusuk. Dengan perawatan yang tepat, selada siap panen dalam waktu 30–40 hari. Hidroponik bukan hanya hemat ruang, tapi juga membuka peluang usaha kecil di rumah.
+<b>Langkah 2 – Siapkan Sistem Hidroponik:</b><br>
+Gunakan sistem <i>deep water culture</i> (DWC) atau <i>rakit apung</i>. Pastikan wadah memiliki sirkulasi udara baik dan dilengkapi pompa udara agar akar tidak kekurangan oksigen.<br><br>
+
+<b>Langkah 3 – Campur Nutrisi:</b><br>
+Gunakan larutan AB Mix dengan rasio tinggi kalium (K) dan fosfor (P) untuk mendukung pembentukan buah. Jaga pH larutan antara 5,8–6,5 dan EC sekitar 1.8–2.2 mS/cm (sumber: QualityFarm.id).<br><br>
+
+<b>Langkah 4 – Pindahkan Bibit:</b><br>
+Pindahkan bibit ke sistem hidroponik setelah tumbuh 4–5 daun sejati. Pastikan akar terendam sebagian dalam larutan nutrisi dan mendapatkan pencahayaan 12–14 jam per hari.<br><br>
+
+<b>Langkah 5 – Perawatan & Panen:</b><br>
+Periksa pH dan EC setiap 3 hari, serta ganti nutrisi setiap 10 hari. Jaga suhu udara antara 25–30°C dan hindari kelembapan tinggi agar tidak muncul jamur daun. Cabai Carolina siap panen sekitar 90–100 hari setelah semai.<br><br>
+
+💡 <i>Fakta:</i> Menurut The PuckerButt Pepper Company (USA), Carolina Reaper merupakan hasil persilangan antara cabai Habanero dan Ghost Pepper, diciptakan oleh Ed Currie dari Carolina Selatan.
     `,
     category: "Tutorial",
     date: "10 Nov 2025",
@@ -151,18 +164,58 @@ Liputan6 (2023) menambahkan bahwa salah satu keunggulan hidroponik adalah efisie
     id: 2,
     title: "Nutrisi AB Mix: Rahasia Pertumbuhan Cepat Tanaman Hidroponik",
     summary: `
-Nutrisi AB Mix adalah kunci utama dalam pertumbuhan tanaman hidroponik. Larutan ini terdiri dari dua bagian — A dan B — yang masing-masing mengandung unsur hara makro dan mikro penting. Berdasarkan penelitian dari Neliti (2019), keseimbangan kedua nutrisi ini berpengaruh langsung terhadap tinggi tanaman, jumlah daun, dan hasil panen. Nutrisi A umumnya berisi Nitrogen (N) dan Kalium (K), sedangkan B mengandung Fosfor (P), Sulfur (S), serta unsur mikro seperti Fe, Zn, dan Cu.
+Nutrisi AB Mix adalah kunci utama pertumbuhan tanaman hidroponik yang sehat dan produktif. Berikut fakta dan cara penggunaannya secara benar:<br><br>
 
-Menurut Farmee.id, larutan AB Mix tidak boleh dicampur langsung dalam bentuk pekat karena bisa menyebabkan pengendapan dan menurunkan efektivitas nutrisi. Campurkan masing-masing dengan air terlebih dahulu, baru gabungkan ke dalam tangki utama. pH ideal untuk hidroponik berkisar 5,8–6,5, sementara EC (Electrical Conductivity) sekitar 1.5–2.0 mS/cm tergantung jenis tanaman.
+<b>Apa itu AB Mix?</b><br>
+AB Mix terdiri dari dua larutan:<br>
+- <b>Larutan A:</b> mengandung Nitrogen (N), Kalsium (Ca), dan Kalium (K).<br>
+- <b>Larutan B:</b> berisi Fosfor (P), Magnesium (Mg), Sulfur (S), serta unsur mikro seperti Fe, Zn, dan Cu.<br><br>
 
-Agromedia.net menjelaskan, simpan AB Mix di tempat sejuk dan gelap untuk menjaga stabilitasnya. Tips tambahan: gunakan dosis yang sesuai fase tanaman — misalnya fase vegetatif memerlukan lebih banyak nitrogen, sementara fase berbunga dan berbuah memerlukan lebih banyak kalium dan fosfor. Untuk tanaman buah seperti cabai dan tomat, pilih AB Mix khusus buah. Dengan penggunaan yang benar, AB Mix mampu mempercepat pertumbuhan tanaman hingga 30% dibanding media tanah biasa, menjadikannya pilihan utama para pegiat hidroponik modern.
+<b>Cara Penggunaan:</b><br>
+1. Campurkan masing-masing larutan A dan B dengan air secara terpisah (jangan langsung digabung dalam bentuk pekat).<br>
+2. Setelah larut sempurna, gabungkan ke dalam tangki utama sesuai dosis yang disarankan (Farmee.id).<br>
+3. Atur pH larutan antara 5.8–6.5 dan EC di kisaran 1.5–2.0 mS/cm.<br>
+4. Ganti larutan nutrisi setiap 1–2 minggu untuk menjaga kestabilan unsur hara.<br><br>
+
+<b>Tips Pemakaian:</b><br>
+- Gunakan dosis tinggi Nitrogen saat fase vegetatif, lalu tambah Kalium dan Fosfor pada fase pembungaan/berbuah.<br>
+- Simpan AB Mix di tempat sejuk, kering, dan terhindar dari sinar matahari langsung (Agromedia.net).<br>
+- Gunakan alat ukur pH & EC untuk hasil maksimal.<br><br>
+
+💡 <i>Fakta:</i> Berdasarkan penelitian Neliti (2019), penggunaan AB Mix terbukti meningkatkan kecepatan pertumbuhan tanaman hingga 30% dibandingkan sistem tanah konvensional.
     `,
     category: "Berita",
     date: "9 Nov 2025",
     image: "img/coming soon.jpg",
   },
-];
+  {
+    id: 3,
+    title: "Cara Menyilangkan Cabai Super Pedas untuk Hasil Unik dan Lebih Tahan Hama",
+    summary: `
+Persilangan cabai (hybridisasi) adalah teknik menghasilkan varietas baru dengan karakter unggul — misalnya lebih pedas, warna mencolok, atau tahan penyakit. Teknik ini banyak digunakan oleh petani modern dan penghobi cabai ekstrem. Berikut panduan umumnya:<br><br>
 
+<b>Langkah 1 – Pilih Indukan yang Tepat:</b><br>
+Gunakan dua varietas berbeda, misalnya Carolina Reaper (super pedas) dan Jalapeno (berdaging tebal). Pastikan keduanya sehat dan bebas hama.<br><br>
+
+<b>Langkah 2 – Isolasi Bunga Betina:</b><br>
+Sebelum bunga betina mekar sempurna, tutup dengan kantong kain tipis agar tidak terserbuki serangga lain. Pilih bunga yang masih kuncup dan siap diserbuki dalam 1–2 hari.<br><br>
+
+<b>Langkah 3 – Ambil Serbuk Sari Jantan:</b><br>
+Petik bunga jantan dari tanaman induk lain (misalnya Jalapeno) dan ambil serbuk sarinya dengan kuas halus. Oleskan ke kepala putik bunga betina (Carolina Reaper).<br><br>
+
+<b>Langkah 4 – Penandaan & Pemeliharaan:</b><br>
+Beri label pada bunga yang diserbuki agar mudah dilacak hasilnya. Setelah buah matang, ambil bijinya dan keringkan sebelum disemai.<br><br>
+
+<b>Langkah 5 – Seleksi Generasi Baru:</b><br>
+Tanam biji hasil persilangan dan pilih tanaman yang menunjukkan karakter unggul: pertumbuhan kuat, rasa pedas stabil, dan tahan penyakit.<br><br>
+
+💡 <i>Fakta:</i> Menurut Chili Pepper Institute (New Mexico State University), hybridisasi cabai dapat menghasilkan varietas dengan kombinasi warna dan tingkat kepedasan baru, seperti “Naga Viper” hasil silang tiga jenis superhot (Bhut Jolokia × Naga Morich × Trinidad Scorpion).
+    `,
+    category: "Tips & Pengetahuan",
+    date: "8 Nov 2025",
+    image: "img/coming soon.jpg",
+  },
+];
 
 // ==================== NEWS RENDER FIX ====================
 function renderNewsCards(newsData) {
