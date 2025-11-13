@@ -1,0 +1,104 @@
+/* ================== RESPONSIVE (KHUSUS MOBILE) ================== */
+
+/* Sembunyikan hamburger di desktop */
+#menu-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  /* Tampilkan hamburger & sembunyikan search bar di header */
+  #menu-toggle {
+    display: inline-block;
+  }
+  .topbar .search-bar {
+    display: none;
+  }
+
+  /* Tata letak utama */
+  .layout {
+    grid-template-columns: 1fr;
+    padding: 0 1rem 2rem;
+  }
+
+  /* Sidebar */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 260px;
+    background: #fff;
+    box-shadow: 2px 0 12px rgba(0, 0, 0, 0.15);
+    transform: translateX(-110%);
+    transition: transform 0.3s ease-in-out;
+    z-index: 2000;
+  }
+
+  .sidebar.mobile-active {
+    transform: translateX(0);
+    padding-top: 4rem;
+  }
+
+  /* Product grid */
+  .products-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+
+  /* News grid */
+  .news-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+
+  /* Penyesuaian ukuran font & elemen lainnya */
+  body {
+    font-size: 0.9rem;
+  }
+
+  .product-title {
+    font-size: 0.9rem;
+  }
+
+  .price {
+    font-size: 0.85rem;
+  }
+
+  .btn-sm {
+    font-size: 0.8rem;
+    padding: 0.35rem 0.6rem;
+  }
+
+  .page-header h1 {
+    font-size: 1.2rem;
+  }
+
+  /* My Cart */
+  .cart-layout {
+    flex-direction: column;
+  }
+
+  .cart-items-container {
+    margin-bottom: 2rem;
+  }
+
+  .cart-item-product {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .cart-item-image {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 1rem;
+  }
+
+  /* Flyer/Hero section */
+  .hero-title {
+    font-size: 1.5rem;
+  }
+  .hero-subtitle {
+    font-size: 0.9rem;
+    max-width: 80%;
+  }
+}
