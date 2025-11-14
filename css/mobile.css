@@ -110,4 +110,65 @@
     font-size: 0.9rem;
     max-width: 80%;
   }
+
+  /* My Account & Order History */
+  .my-account .page-title,
+  .order-history .page-title {
+    margin-left: 1rem;
+    margin-right: 1rem;
+  }
+
+  .account-layout {
+    flex-direction: column;
+  }
+
+  /* Product Detail */
+  .product-detail-head {
+    flex-direction: column;
+    text-align: left; /* Pastikan teks rata kiri untuk tampilan modern */
+  }
+
+  .product-detail-img {
+    width: 100%; /* Gambar lebar penuh */
+    max-width: 100%; /* Hapus batasan sebelumnya */
+    margin: 0 0 1.5rem 0; /* Margin bawah untuk spasi ke konten */
+  }
+
+  .product-detail-info {
+    width: 100%; /* Kontainer info lebar penuh */
+  }
+
+  .product-detail-info .badge-category {
+    margin: 0 0 0.5rem 0; /* Hapus margin auto, beri spasi bawah */
+  }
+
+  .product-detail-title {
+    font-size: 1.4rem; /* Judul lebih besar dan jelas */
+  }
+  .product-detail-price {
+    font-size: 1.2rem; /* Harga menonjol */
+    margin-bottom: 1rem; /* Spasi sebelum deskripsi */
+  }
+  .product-detail-desc-short {
+    font-size: 0.9rem; /* Deskripsi mudah dibaca */
+    margin-bottom: 1.5rem; /* Spasi sebelum tombol CTA */
+  }
+
+  .related-products .products-grid {
+    grid-template-columns: 1fr; /* Reset grid columns */
+    display: flex; /* Gunakan flexbox */
+    overflow-x: auto; /* Aktifkan horizontal scroll */
+    padding-bottom: 1.5rem; /* Beri ruang untuk scrollbar */
+    gap: 1rem;
+  }
+
+  .related-products .product-card {
+    width: 160px; /* Samakan dengan ukuran di index.html */
+    flex-shrink: 0; /* Mencegah card menyusut */
+  }
+
+  /* Sembunyikan scrollbar agar lebih rapi */
+  .related-products .products-grid::-webkit-scrollbar {
+    display: none;
+  }
 }
