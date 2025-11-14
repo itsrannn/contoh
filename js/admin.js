@@ -76,6 +76,22 @@ document.addEventListener('DOMContentLoaded', async () => {
                 ? `${profile.full_name || 'Nama tidak ada'} <br><small>(${profile.phone_number || 'No HP tidak ada'})</small>`
                 : 'Pelanggan tidak ditemukan';
 
+            // Format Alamat
+            let addressInfo = 'Alamat tidak tersedia';
+            if (order.shipping_address) {
+                const addr = order.shipping_address;
+                // Build the address string piece by piece to avoid "undefined" text
+                const addressParts = [
+                    addr.address, // Street, building, house number
+                    addr.village,
+                    addr.district,
+                    addr.regency,
+                    addr.province,
+                    addr.postal_code
+                ];
+                addressInfo = addressParts.filter(part => part).join(', '); // Filter out null/empty parts and join
+            }
+
             // Format tanggal
             const orderDate = new Date(order.created_at).toLocaleDateString('id-ID', {
                 day: '2-digit', month: 'long', year: 'numeric'
@@ -83,17 +99,31 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             // Template kartu
             card.innerHTML = `
-                <div class="card-header">
-                    <h3>Pesanan #${order.order_code || order.id}</h3>
-                    <span class="status status-${order.status.toLowerCase().replace(/\s+/g, '-')}">${order.status}</span>
+                <div class="admin-order-card">
+                    <div class="order-header">
+                        <h3>Pesanan #${order.order_code || order.id}</h3>
+                        <span class="status status-${order.status.toLowerCase().replace(/\s+/g, '-')}">${order.status}</span>
+                    </div>
+                    <div class="order-body">
+                        <div class="info-group">
+                            <label>Tanggal</label>
+                            <p>${orderDate}</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Pelanggan</label>
+                            <p>${customerInfo}</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Alamat Kirim</label>
+                            <p>${addressInfo}</p>
+                        </div>
+                        <div class="info-group">
+                            <label>Item</label>
+                            <ul>${itemsList}</ul>
+                        </div>
+                    </div>
+                    <div class="order-footer action-buttons"></div>
                 </div>
-                <div class="card-body">
-                    <p><strong>Tanggal:</strong> ${orderDate}</p>
-                    <p><strong>Pelanggan:</strong> ${customerInfo}</p>
-                    <p><strong>Item:</strong></p>
-                    <ul>${itemsList}</ul>
-                </div>
-                <div class="card-footer action-buttons"></div>
             `;
 
             const actionsContainer = card.querySelector('.action-buttons');
