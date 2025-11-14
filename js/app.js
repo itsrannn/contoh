@@ -158,7 +158,7 @@ Periksa pH dan EC setiap 3 hari, serta ganti nutrisi setiap 10 hari. Jaga suhu u
     `,
     category: "Tutorial",
     date: "10 Nov 2025",
-    image: "img/coming soon.jpg",
+    image: "img/Pemula.png",
   },
   {
     id: 2,
@@ -186,7 +186,7 @@ AB Mix terdiri dari dua larutan:<br>
     `,
     category: "Berita",
     date: "9 Nov 2025",
-    image: "img/coming soon.jpg",
+    image: "img/Nutrisi AB.png",
   },
   {
     id: 3,
@@ -213,7 +213,7 @@ Tanam biji hasil persilangan dan pilih tanaman yang menunjukkan karakter unggul:
     `,
     category: "Tips & Pengetahuan",
     date: "8 Nov 2025",
-    image: "img/coming soon.jpg",
+    image: "img/Cabai Silang.png",
   },
 ];
 
