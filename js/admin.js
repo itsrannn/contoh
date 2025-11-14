@@ -59,7 +59,8 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         orders.forEach(order => {
             const card = document.createElement('div');
-            card.className = 'order-card';
+            card.className = 'admin-order-card';
+            card.id = `order-${order.id}`;
 
             // Items
             let itemsList = '<li>Tidak ada item</li>';
@@ -74,11 +75,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 ? `${profile.full_name || 'Nama tidak ada'} <br><small>(${profile.phone_number || 'No HP tidak ada'})</small>`
                 : 'Pelanggan tidak ditemukan';
 
-            // ✅ Perbaikan Konflik 1 — Address builder terbaik
+            // Address
             let addressInfo = 'Alamat tidak tersedia';
             if (order.shipping_address) {
                 const addr = order.shipping_address;
-
                 const addressParts = [
                     addr.address,
                     addr.village,
@@ -87,23 +87,23 @@ document.addEventListener('DOMContentLoaded', async () => {
                     addr.province,
                     addr.postal_code
                 ];
-
                 addressInfo = addressParts.filter(part => part).join(', ');
             }
 
-            // Format Tanggal
+            // Date
             const orderDate = new Date(order.created_at).toLocaleDateString('id-ID', {
-                day: '2-digit', month: 'long', year: 'numeric'
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric'
             });
 
-            // ✅ Perbaikan Konflik 2 — Gunakan markup card versi admin yang lebih bagus
+            // UI Markup
             card.innerHTML = `
                 <div class="admin-order-card">
                     <div class="order-header">
                         <h3>Pesanan #${order.order_code || order.id}</h3>
-                        <span class="status status-${order.status.toLowerCase().replace(/\s+/g, '-')}">
-                            ${order.status}
-                        </span>
+                        <span class="status status-${order.status.toLowerCase().replace(/\s+/g, '-')}"
+                        >${order.status}</span>
                     </div>
 
                     <div class="order-body">
@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 </div>
             `;
 
-            // Tombol Status
+            // Status Buttons
             const actionsContainer = card.querySelector('.action-buttons');
             addActions(actionsContainer, order);
 
@@ -153,7 +153,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (availableActions) {
             availableActions.forEach(action => {
-                const actionBtn = createButton(action, () => updateOrderStatus(order.id, action));
+                const actionBtn = createButton(action, () => updateOrderStatus(order, action));
                 cell.appendChild(actionBtn);
             });
         } else {
@@ -168,18 +168,35 @@ document.addEventListener('DOMContentLoaded', async () => {
         return button;
     }
 
-    async function updateOrderStatus(orderId, newStatus) {
+    async function updateOrderStatus(order, newStatus) {
         const { error } = await supabase
             .from('orders')
             .update({ status: newStatus })
-            .eq('id', orderId);
+            .eq('id', order.id);
 
         if (error) {
             console.error('Error updating status:', error);
             alert('Gagal memperbarui status.');
-        } else {
-            alert('Status berhasil diperbarui.');
-            fetchOrders();
+            return;
+        }
+
+        alert('Status pesanan berhasil diperbarui.');
+
+        // --- Local UI Update ---
+        order.status = newStatus;
+
+        const card = document.getElementById(`order-${order.id}`);
+        if (!card) return;
+
+        const statusEl = card.querySelector('.status');
+        if (statusEl) {
+            statusEl.textContent = newStatus;
+            statusEl.className = `status status-${newStatus.toLowerCase().replace(/\s+/g, '-')}`;
+        }
+
+        const actionsContainer = card.querySelector('.action-buttons');
+        if (actionsContainer) {
+            addActions(actionsContainer, order);
         }
     }
 
