@@ -41,7 +41,7 @@
 
   .sidebar.mobile-active {
     transform: translateX(0);
-    padding-top: 4rem; /* dari feat/mobile-responsive */
+    padding-top: 6rem; /* dari feat/mobile-responsive */
   }
 
   /* Product grid */
