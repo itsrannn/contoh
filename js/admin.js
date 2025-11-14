@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     async function fetchOrders() {
         try {
-            // Ambil semua pesanan + data profil pelanggan (nama & kontak)
             const { data: orders, error } = await supabase
                 .from('orders')
                 .select(`
@@ -35,10 +34,10 @@ document.addEventListener('DOMContentLoaded', async () => {
                 loadingMessage.textContent = 'Tidak ada pesanan yang ditemukan.';
                 showAdminMessage(
                     'Tidak Ada Pesanan Ditemukan',
-                    'Ini bisa terjadi karena beberapa alasan:<br>' +
-                    '1. <strong>Belum ada pesanan yang masuk.</strong><br>' +
-                    '2. <strong>Anda belum dikonfigurasi sebagai admin.</strong> Pastikan ID pengguna Anda telah ditambahkan ke tabel `public.admins` di Supabase.<br>' +
-                    '3. <strong>Kebijakan RLS (Row Level Security) salah.</strong> Pastikan kebijakan RLS di tabel `orders` mengizinkan admin untuk melihat semua data. Lihat file `supabase_setup.sql` untuk contoh yang benar.'
+                    'Ini bisa terjadi karena:<br>' +
+                    '1. Belum ada pesanan masuk.<br>' +
+                    '2. Anda belum terdaftar sebagai admin.<br>' +
+                    '3. Kebijakan RLS salah.'
                 );
                 return;
             }
@@ -50,82 +49,90 @@ document.addEventListener('DOMContentLoaded', async () => {
             loadingMessage.textContent = 'Gagal memuat pesanan.';
             showAdminMessage(
                 'Gagal Memuat Pesanan',
-                `Terjadi kesalahan saat mengambil data pesanan: <strong>${error.message}</strong><br>` +
-                'Pastikan Anda telah masuk (login) dan memiliki koneksi internet yang stabil. Jika masalah berlanjut, periksa kebijakan RLS Anda.'
+                `Terjadi kesalahan: <strong>${error.message}</strong><br>Pastikan login & koneksi internet stabil.`
             );
         }
     }
 
     function renderOrders(orders) {
-        ordersGrid.innerHTML = ''; // Hapus kartu sebelumnya
+        ordersGrid.innerHTML = '';
 
         orders.forEach(order => {
             const card = document.createElement('div');
             card.className = 'order-card';
 
-            // Ringkasan item
+            // Items
             let itemsList = '<li>Tidak ada item</li>';
             const orderItems = order.order_details || order.items;
             if (orderItems && orderItems.length > 0) {
                 itemsList = orderItems.map(item => `<li>${item.name} (x${item.quantity})</li>`).join('');
             }
 
-            // Informasi pelanggan & kontak
+            // Customer
             const profile = order.profiles;
             const customerInfo = profile
                 ? `${profile.full_name || 'Nama tidak ada'} <br><small>(${profile.phone_number || 'No HP tidak ada'})</small>`
                 : 'Pelanggan tidak ditemukan';
 
-            // Format Alamat
+            // ✅ Perbaikan Konflik 1 — Address builder terbaik
             let addressInfo = 'Alamat tidak tersedia';
             if (order.shipping_address) {
                 const addr = order.shipping_address;
-                // Build the address string piece by piece to avoid "undefined" text
+
                 const addressParts = [
-                    addr.address, // Street, building, house number
+                    addr.address,
                     addr.village,
                     addr.district,
                     addr.regency,
                     addr.province,
                     addr.postal_code
                 ];
-                addressInfo = addressParts.filter(part => part).join(', '); // Filter out null/empty parts and join
+
+                addressInfo = addressParts.filter(part => part).join(', ');
             }
 
-            // Format tanggal
+            // Format Tanggal
             const orderDate = new Date(order.created_at).toLocaleDateString('id-ID', {
                 day: '2-digit', month: 'long', year: 'numeric'
             });
 
-            // Template kartu
+            // ✅ Perbaikan Konflik 2 — Gunakan markup card versi admin yang lebih bagus
             card.innerHTML = `
                 <div class="admin-order-card">
                     <div class="order-header">
                         <h3>Pesanan #${order.order_code || order.id}</h3>
-                        <span class="status status-${order.status.toLowerCase().replace(/\s+/g, '-')}">${order.status}</span>
+                        <span class="status status-${order.status.toLowerCase().replace(/\s+/g, '-')}">
+                            ${order.status}
+                        </span>
                     </div>
+
                     <div class="order-body">
                         <div class="info-group">
                             <label>Tanggal</label>
                             <p>${orderDate}</p>
                         </div>
+
                         <div class="info-group">
                             <label>Pelanggan</label>
                             <p>${customerInfo}</p>
                         </div>
+
                         <div class="info-group">
                             <label>Alamat Kirim</label>
                             <p>${addressInfo}</p>
                         </div>
+
                         <div class="info-group">
                             <label>Item</label>
                             <ul>${itemsList}</ul>
                         </div>
                     </div>
+
                     <div class="order-footer action-buttons"></div>
                 </div>
             `;
 
+            // Tombol Status
             const actionsContainer = card.querySelector('.action-buttons');
             addActions(actionsContainer, order);
 
@@ -134,7 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function addActions(cell, order) {
-        cell.innerHTML = ''; // Bersihkan tombol sebelumnya
+        cell.innerHTML = '';
 
         const statusTransitions = {
             'Menunggu Konfirmasi': ['Diproses', 'Ditolak'],
@@ -169,13 +176,12 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         if (error) {
             console.error('Error updating status:', error);
-            alert('Gagal memperbarui status pesanan.');
+            alert('Gagal memperbarui status.');
         } else {
-            alert('Status pesanan berhasil diperbarui.');
-            fetchOrders(); // Refresh data
+            alert('Status berhasil diperbarui.');
+            fetchOrders();
         }
     }
 
-    // Muat data awal
     fetchOrders();
 });
