@@ -20,6 +20,7 @@
     padding: 0 1rem 2rem;
   }
 
+  /* MAIN CONTENT (ambil dari feat/mobile-responsive) */
   .main-content {
     margin: 0;
   }
@@ -40,7 +41,7 @@
 
   .sidebar.mobile-active {
     transform: translateX(0);
-    padding-top: 4rem;
+    padding-top: 4rem; /* dari feat/mobile-responsive */
   }
 
   /* Product grid */
@@ -49,7 +50,7 @@
     gap: 1rem;
   }
 
-  /* News grid */
+  /* News grid → gunakan versi feat/mobile-responsive (lebih cocok untuk mobile) */
   .news-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -97,7 +98,7 @@
     margin-bottom: 1rem;
   }
 
-  /* Flyer/Hero section */
+  /* Flyer/Hero section (dari feat/mobile-responsive) */
   .hero-title {
     font-size: 1.5rem;
   }
