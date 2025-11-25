@@ -75,17 +75,25 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- News Rendering Logic ---
   const newsContainer = document.getElementById("index-news-container");
   if (newsContainer && window.mockNewsData) {
-    window.mockNewsData.forEach((newsItem) => {
+    // Ambil hanya 3 berita pertama untuk ditampilkan di halaman utama
+    const newsToShow = window.mockNewsData.slice(0, 3);
+    newsToShow.forEach((newsItem) => {
       const newsCard = `
         <a href="${newsItem.link}" class="news-card-link">
           <article class="news-card">
-            <figure class="news-media">
+            <div class="news-card-image-wrapper">
               <img src="${newsItem.imageUrl}" alt="${newsItem.title}" />
-            </figure>
-            <div class="news-body">
-              <h3 class="news-title">${newsItem.title}</h3>
-              <p class="news-summary">${newsItem.summary}</p>
-              <span class="news-read-more">Baca Selengkapnya &rarr;</span>
+            </div>
+            <div class="news-card-content">
+              <p class="news-card-meta">${new Date(
+                newsItem.date
+              ).toLocaleDateString("id-ID", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}</p>
+              <h3>${newsItem.title}</h3>
+              <p class="news-card-excerpt">${newsItem.summary}</p>
             </div>
           </article>
         </a>

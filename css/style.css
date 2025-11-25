@@ -574,6 +574,13 @@ body {
   }
 }
 
+.news-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  height: 100%;
+}
+
 .news-card {
   background: var(--bg);
   border-radius: var(--radius);
@@ -582,8 +589,7 @@ body {
   display: flex;
   flex-direction: column;
   transition: transform 0.3s, box-shadow 0.3s;
-  text-decoration: none;
-  color: #111;
+  height: 100%;
 }
 
 .news-card:hover {
@@ -592,10 +598,10 @@ body {
 }
 
 .news-card-image-wrapper {
-  /* Rasio 16:9 (lebar 16, tinggi 9) */
+  /* Modern 16:9 aspect ratio */
   position: relative;
   width: 100%;
-  padding-bottom: 56.25%; /* 9/16 * 100% */
+  padding-bottom: 56.25%; /* 9 / 16 * 100% */
   overflow: hidden;
   background-color: var(--surface);
 }
@@ -630,6 +636,7 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   min-height: 3.08em; /* 1.1em * 1.4 * 2 baris */
+  height: 3.08em; /* Tambahkan tinggi eksplisit */
 }
 
 .news-card-meta {
