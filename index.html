@@ -76,16 +76,20 @@
               sortOption: "default",
 
               init() {
+                const rerenderIcons = () => this.$nextTick(() => feather.replace());
+
                 // Initial load
-                this.$watch('isLoading', (loading) => {
-                  if (!loading) {
-                    this.$nextTick(() => feather.replace());
-                  }
+                this.$watch("isLoading", (loading) => {
+                  if (!loading) rerenderIcons();
                 });
 
-                // Pagination
-                this.$watch("currentPage", () => {
-                  this.$nextTick(() => feather.replace());
+                // Re-render icons whenever the view changes from pagination
+                this.$watch("currentPage", rerenderIcons);
+
+                // When filters or search change, reset to page 1 and rerender icons
+                this.$watch("[selectedCategory, sortOption, searchTerm]", () => {
+                  this.currentPage = 1;
+                  rerenderIcons();
                 });
               },
 
