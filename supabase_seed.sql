@@ -16,7 +16,7 @@
 TRUNCATE TABLE public.products RESTART IDENTITY;
 
 -- Masukkan data baru
-INSERT INTO public.products (name, category, price, "char", description, image_url) VALUES
+INSERT INTO public.products (name, category, price, "characteristics", description, image_url) VALUES
 ('Benih Cabai Carolina', 'benih', 12000, '1 pack berisi ±12 biji <br> - Benih Unggul <br> - Tingkat Pedas: Sangat Tinggi (±2.200.000 SHU) <br> - Perawatan: Sedang <br> - Masa Panen: ±90 hari', 'Benih Cabai Carolina Reaper, hasil persilangan antara Habanero dan Ghost Pepper, dikenal sebagai salah satu cabai terpedas di dunia dengan tingkat kepedasan mencapai sekitar 2,2 juta Scoville Heat Units (SHU). Cabai ini memiliki bentuk keriput dan ekor khas pada ujung buahnya. Cocok untuk para pecinta pedas ekstrem dan penggemar koleksi cabai langka. Tumbuh optimal di daerah tropis dengan sinar matahari penuh, penyiraman rutin, serta pemupukan organik seimbang untuk hasil terbaik.', 'img/general/Cabai Carolina.png'),
 ('Benih Cabai Fatalii', 'benih', 12000, '1 pack berisi ±12 biji <br> - Rasa Pedas & Sitrus <br> - Tingkat Pedas: 125.000–400.000 SHU <br> - Asal: Afrika Tengah <br> - Panen: ±80 hari', 'Benih Cabai Fatalii berasal dari Afrika Tengah dan terkenal dengan rasa pedas tajam berpadu aroma sitrus yang segar. Buahnya berwarna kuning cerah ketika matang, cocok untuk saus pedas, sambal fermentasi, atau olahan cabai segar. Varietas ini mudah tumbuh di iklim tropis, cepat berbuah, dan memiliki produktivitas tinggi. Cocok untuk ditanam di pot maupun lahan terbuka dengan paparan sinar matahari penuh.', 'img/general/Cabai Fatalii.png'),
 ('Benih Cabai Ghost Pepper', 'benih', 15000, '1 pack berisi ±12 biji <br> - Super Pedas <br> - Tingkat Pedas: ±1.041.427 SHU <br> - Asal: India Timur Laut <br> - Panen: ±100 hari', 'Benih Cabai Ghost Pepper atau Bhut Jolokia berasal dari Assam, India, dan pernah menyandang gelar cabai terpedas di dunia. Dengan tingkat pedas lebih dari 1 juta SHU, cabai ini memberikan sensasi pedas yang datang perlahan namun bertahan lama. Memiliki warna merah menyala dengan aroma khas buah tropis. Cocok untuk olahan saus super pedas dan sambal bubuk. Dapat tumbuh baik di iklim hangat dengan sinar matahari penuh.', 'img/general/Cabai Ghost Pepper.png'),
@@ -31,3 +31,17 @@ INSERT INTO public.products (name, category, price, "char", description, image_u
 ('Spons Hidroponik', 'media', 3000, 'Media Semai <br> - Hidroponik <br> - Menyerap Air <br> - 1 Papan', 'Spons khusus untuk penyemaian benih pada sistem hidroponik. Memiliki daya serap air tinggi namun tetap menjaga aerasi akar agar tidak tergenang. Cocok digunakan untuk semai sayuran daun seperti selada, bayam, dan kangkung. Dapat dipotong sesuai ukuran netpot atau tray semai.', 'img/general/Spons Hidroponik.png'),
 ('Gunting Tanaman', 'peralatan', 38000, 'Stainless Steel <br> - Tajam & Presisi <br> - Ergonomis <br> - Anti Karat', 'Gunting pangkas berkualitas tinggi berbahan stainless steel yang tahan lama dan tajam. Dirancang dengan gagang ergonomis agar nyaman di tangan, cocok untuk memangkas ranting kecil, daun, atau bunga. Ideal digunakan untuk tanaman hias maupun kebun sayur.', 'img/general/Gunting Tanaman.png'),
 ('Set Komplit Berkebun', 'promo', 75000, 'Peralatan Lengkap <br> - Termasuk Sekop, Sarung Tangan, dan Gunting <br> - Material Kuat <br> - Cocok untuk Pemula', 'Set komplit berkebun berisi perlengkapan dasar seperti sekop mini, sarung tangan, gunting tanaman, dan garpu tanah. Terbuat dari bahan berkualitas tinggi dan desain ergonomis untuk kenyamanan berkebun. Ideal bagi pemula yang ingin memulai berkebun di rumah atau kebun kecil.', 'img/general/Set Komplit.png');
+
+-- =====================================================================================
+-- SKRIP SEED UNTUK TABEL 'news'
+-- =====================================================================================
+-- Skrip ini mengisi tabel 'news' dengan data berita awal.
+
+-- Kosongkan data yang ada untuk mencegah duplikasi
+TRUNCATE TABLE public.news RESTART IDENTITY;
+
+-- Masukkan data berita baru
+INSERT INTO public.news (title, excerpt, image_url) VALUES
+('5 Tips Jitu Memulai Hidroponik di Rumah', 'Hidroponik tidak sesulit yang dibayangkan. Dengan panduan ini, Anda bisa memulai kebun hidroponik mini di balkon atau halaman rumah Anda.', 'img/Pemula.png'),
+('Mengenal Nutrisi A-B Mix: Kunci Sukses Tanaman Hidroponik', 'Apa itu nutrisi A-B Mix dan mengapa sangat penting? Pelajari cara meracik dan menggunakannya untuk hasil panen yang maksimal.', 'img/Nutrisi AB.png'),
+('Perbandingan Media Tanam: Rockwool, Cocopeat, atau Hidroton?', 'Setiap media tanam memiliki kelebihan dan kekurangan. Kami bantu Anda memilih yang terbaik sesuai dengan jenis tanaman dan sistem Anda.', 'img/Cabai Silang.png');
