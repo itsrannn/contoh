@@ -1395,3 +1395,38 @@ body {
   justify-content: center;
   gap: 1rem;
 }
+
+/* --- Styles for Confirmation Modal --- */
+.confirmation-summary {
+  margin-bottom: 1.5rem;
+  text-align: left;
+  max-height: 200px;
+  overflow-y: auto;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  padding: 0.5rem 0;
+}
+
+.summary-product-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.summary-product-name {
+  color: #333;
+}
+
+.summary-product-total {
+  font-weight: 600;
+  color: #111;
+}
+
+.summary-grand-total {
+  text-align: right;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: var(--green);
+}
