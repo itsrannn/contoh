@@ -19,6 +19,7 @@
         }
         .dashboard-header-text h1 { margin: 0; }
         .dashboard-header-text p { margin: 0; margin-top: 0.25rem; color: #6c757d; }
+
         .back-link {
             display: block;
             margin-bottom: 1rem;
@@ -29,6 +30,7 @@
         .back-link:hover {
             text-decoration: underline;
         }
+
         .content-card {
             background-color: #fff;
             border-radius: 12px;
@@ -135,7 +137,10 @@
                     <h1 class="page-title">Manajemen Konten</h1>
                     <p>Kelola produk dan berita yang ditampilkan di situs Anda.</p>
                 </div>
-                <button @click="openAddModal()" class="btn-add">+ Tambah Item Baru</button>
+                <button @click="openAddModal()" class="btn-add">
+                    <span x-show="activeTab === 'products'">+ Tambah Produk</span>
+                    <span x-show="activeTab === 'news'">+ Tambah Berita</span>
+                </button>
             </div>
 
             <div class="content-card">
@@ -213,7 +218,7 @@
     </main>
 
     <!-- Generic Form Modal -->
-    <div x-show="isModalOpen" x-transition class="modal-overlay" @click.self="closeModal()" style="display: none;">
+    <div x-show="isModalOpen" x-transition class="modal-overlay" @click.self="closeModal()">
         <div class="modal-content" @click.stop>
             <div class="modal-header">
                 <h2 x-text="getModalTitle()"></h2>
