@@ -1,12 +1,8 @@
-/* ================== RESPONSIVE (KHUSUS MOBILE) ================== */
-
-/* Sembunyikan hamburger di desktop */
 #menu-toggle {
   display: none;
 }
 
 @media (max-width: 768px) {
-  /* Tampilkan hamburger & sembunyikan search bar di header */
   #menu-toggle {
     display: inline-block;
   }
@@ -14,7 +10,6 @@
     display: none;
   }
 
-  /* Tata letak utama */
   .layout {
     grid-template-columns: 1fr;
     padding: 0 1rem 2rem;
@@ -25,7 +20,6 @@
     margin: 0;
   }
 
-  /* Sidebar */
   .sidebar {
     position: fixed;
     top: 0;
@@ -41,16 +35,14 @@
 
   .sidebar.mobile-active {
     transform: translateX(0);
-    padding-top: 6rem; /* dari feat/mobile-responsive */
+    padding-top: 6rem;
   }
 
-  /* Product grid */
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
   }
 
-  /* News grid → gunakan versi feat/mobile-responsive (lebih cocok untuk mobile) */
   .news-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
@@ -60,7 +52,6 @@
     margin: 0;
   }
 
-  /* Penyesuaian ukuran font & elemen lainnya */
   body {
     font-size: 0.9rem;
   }
@@ -82,7 +73,6 @@
     font-size: 1.2rem;
   }
 
-  /* My Cart */
   .cart-layout {
     flex-direction: column;
   }
@@ -102,7 +92,6 @@
     margin-bottom: 1rem;
   }
 
-  /* Flyer/Hero section (dari feat/mobile-responsive) */
   .hero-title {
     font-size: 1.5rem;
   }
@@ -111,7 +100,6 @@
     max-width: 80%;
   }
 
-  /* My Account & Order History */
   .my-account .page-title,
   .order-history .page-title {
     margin-left: 1rem;
@@ -122,7 +110,6 @@
     flex-direction: column;
   }
 
-  /* Product Detail */
 .product-detail-head {
   display: flex;
   flex-direction: row;
@@ -159,19 +146,18 @@
 
 
   .related-products .products-grid {
-    grid-template-columns: 1fr; /* Reset grid columns */
-    display: flex; /* Gunakan flexbox */
-    overflow-x: auto; /* Aktifkan horizontal scroll */
-    padding-bottom: 1.5rem; /* Beri ruang untuk scrollbar */
+    grid-template-columns: 1fr;
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 1.5rem;
     gap: 1rem;
   }
 
   .related-products .product-card {
     width: 160px; /* Samakan dengan ukuran di index.html */
-    flex-shrink: 0; /* Mencegah card menyusut */
+    flex-shrink: 0;
   }
 
-  /* Sembunyikan scrollbar agar lebih rapi */
   .related-products .products-grid::-webkit-scrollbar {
     display: none;
   }

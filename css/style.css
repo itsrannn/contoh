@@ -1,4 +1,3 @@
-/* ================== ROOT & RESET ================== */
 :root {
   --green: #1b5e20;
   --accent: #2e7d32;
@@ -29,7 +28,7 @@ body {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  background-color: var(--accent); /* Warna hijau gelap */
+  background-color: var(--accent);
   color: white;
   padding: 10px 15px;
   border-radius: 8px;
@@ -44,7 +43,6 @@ body {
   transform: translateY(0);
 }
 
-/* ================== NAVBAR ================== */
 .topbar {
   background: var(--green);
   color: #fff;
@@ -96,7 +94,6 @@ body {
   font-size: 0.75rem;
 }
 
-/* ================== LAYOUT ================== */
 .main-content {
   margin: 2rem;
 }
@@ -112,7 +109,6 @@ body {
   box-sizing: border-box;
 }
 
-/* ================== SIDEBAR ================== */
 .sidebar {
   background: var(--surface);
   padding: 1.25rem;
@@ -189,7 +185,6 @@ body {
   transform: translateX(-110%);
 }
 
-/* ================== Search Bar ================== */
 .search-bar {
   display: flex;
   align-items: center;
@@ -245,7 +240,6 @@ body {
   transform: scale(1.1);
 }
 
-/* ================== PAGE HEADER ================== */
 .page-header {
   display: flex;
   align-items: center;
@@ -311,7 +305,6 @@ body {
   color: #333;
 }
 
-/* ================== PRODUCT GRID ================== */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -447,7 +440,6 @@ body {
   transform: scale(1.1) translateY(-4px);
 }
 
-/* ================== RESPONSIVE ================== */
 @media (max-width: 768px) {
   .products-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -473,7 +465,6 @@ body {
   }
 }
 
-/* ================== PAGINATION ================== */
 .pagination {
   display: flex;
   justify-content: center;
@@ -512,7 +503,6 @@ body {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
-/* ================== ABOUT PREVIEW ================== */
 .preview {
   background: var(--surface);
   padding: 1.5rem;
@@ -552,10 +542,8 @@ body {
   color: #555;
 }
 
-/* ================== NEWS SECTION (INDEX) ================== */
 .news-grid {
   display: grid;
-  /* Default: 2 kolom di tablet, 1 di mobile */
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 2rem;
   margin: 2rem;
@@ -658,7 +646,6 @@ body {
   text-overflow: ellipsis;
 }
 
-/* ================== FOOTER ================== */
 .site-footer {
   width: 100%;
   background: var(--green);
@@ -723,7 +710,6 @@ body {
   color: #e0e0e0;
 }
 
-/* ================== RESPONSIVE ================== */
 @media (max-width: 1024px) {
   .layout {
     grid-template-columns: 220px 1fr;
@@ -789,16 +775,11 @@ body {
   }
 }
 
-/* ================== RESPONSIVE SIDEBAR & MENU ================== */
-
-/* 🔹 Desktop Mode (default) */
 #menu-toggle {
-  display: none; /* sembunyikan hamburger menu */
+  display: none;
 }
 
-/* 🔹 Mobile Mode */
 @media (max-width: 768px) {
-  /* Tampilkan hamburger menu */
   #menu-toggle {
     display: inline-block;
     color: white;
@@ -830,7 +811,6 @@ body {
   }
 }
 
-/* ================== HERO SLIDER (Flyer) ================== */
 .hero-section {
   padding-top: 0.5rem;
 }
@@ -938,7 +918,6 @@ body {
   transform: scale(1.2);
 }
 
-/* Navigasi Arrows */
 .slider-arrow {
   position: absolute;
   top: 50%;
@@ -974,7 +953,6 @@ body {
   padding-right: 10px;
 }
 
-/* ================== CONTACT PAGE MODERN ================== */
 .contact-grid {
   display: grid;
   grid-template-columns: 2fr 1fr;
@@ -1077,9 +1055,6 @@ body {
   }
 }
 
-/* ================== MY ACCOUNT V2 ================== */
-
-/* --- Layout --- */
 .account-layout {
   display: flex;
   gap: 2rem;
@@ -1339,7 +1314,6 @@ body {
   }
 }
 
-/* ================== MODAL NOTIFICATION ================== */
 .modal-overlay {
   position: fixed;
   top: 0;

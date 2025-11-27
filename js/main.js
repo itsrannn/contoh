@@ -14,7 +14,7 @@ document.addEventListener("alpine:init", () => {
         if (error) throw error;
         this.all = data;
       } catch (err) {
-        console.error("Error fetching products:", err);
+        // Gagal memuat produk, biarkan array kosong
       } finally {
         this.isLoading = false;
       }
@@ -119,7 +119,6 @@ document.addEventListener("alpine:init", () => {
         if (error) throw error;
         this.products = data;
       } catch (error) {
-        console.error('Error fetching products:', error);
         window.showNotification('Gagal memuat produk.', true);
       } finally {
         this.isLoading.products = false;
@@ -136,7 +135,6 @@ document.addEventListener("alpine:init", () => {
         if (error) throw error;
         this.news = data;
       } catch (error) {
-        console.error('Error fetching news:', error);
         window.showNotification('Gagal memuat berita.', true);
       } finally {
         this.isLoading.news = false;
@@ -161,7 +159,6 @@ document.addEventListener("alpine:init", () => {
         this[tableName] = this[tableName].filter(item => item.id !== id);
         window.showNotification('Item berhasil dihapus.');
       } catch (error) {
-        console.error('Error deleting item:', error);
         window.showNotification('Gagal menghapus item.', true);
       }
     },
@@ -182,7 +179,6 @@ document.addEventListener("alpine:init", () => {
 window.showNotification = (message, isError = false) => {
   const notificationElement = document.getElementById('notification');
   if (!notificationElement) {
-    console.warn('Notification element not found.');
     alert(message);
     return;
   }

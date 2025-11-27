@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     // Pastikan Supabase sudah tersedia
     if (!window.supabase) {
-        console.error('Supabase client not found. Pastikan supabase-client.js dimuat dengan benar.');
         return;
     }
 
@@ -106,7 +105,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             loadingMessage.style.display = 'none';
             renderOrders(orders);
         } catch (error) {
-            console.error('Error fetching orders:', error);
             loadingMessage.textContent = 'Gagal memuat riwayat pesanan.';
         }
     }
@@ -123,7 +121,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             table: 'orders',
             filter: `user_id=eq.${user.id}`
         }, payload => {
-            console.log('Perubahan terdeteksi, memuat ulang pesanan...', payload);
             fetchOrders();
         })
         .subscribe();

@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
       }
     } catch (err) {
-      console.error("Gagal memuat header:", err);
+      // Gagal memuat header, biarkan kosong
     }
   }
 
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       // Jalankan feather icons di footer juga
       if (typeof feather !== "undefined") feather.replace();
     } catch (err) {
-      console.error("Gagal memuat footer:", err);
+      // Gagal memuat footer, biarkan kosong
     }
   }
 });

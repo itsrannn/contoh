@@ -102,7 +102,7 @@ document.addEventListener('alpine:init', () => {
                 const response = await fetch('https://www.emsifa.com/api-wilayah-indonesia/api/provinces.json');
                 this.provinces = await response.json();
             } catch (error) {
-                console.error('Error fetching provinces:', error);
+                // Gagal memuat provinsi
             }
         },
 
@@ -119,7 +119,7 @@ document.addEventListener('alpine:init', () => {
                 this.districts = [];
                 this.villages = [];
             } catch (error) {
-                console.error('Error fetching regencies:', error);
+                // Gagal memuat kabupaten
             }
         },
 
@@ -134,7 +134,7 @@ document.addEventListener('alpine:init', () => {
                 this.districts = await response.json();
                 this.villages = [];
             } catch (error) {
-                console.error('Error fetching districts:', error);
+                // Gagal memuat kecamatan
             }
         },
 
@@ -147,7 +147,7 @@ document.addEventListener('alpine:init', () => {
                 const response = await fetch(`https://www.emsifa.com/api-wilayah-indonesia/api/villages/${this.selectedDistrict}.json`);
                 this.villages = await response.json();
             } catch (error) {
-                console.error('Error fetching villages:', error);
+                // Gagal memuat desa
             }
         },
 
@@ -203,7 +203,6 @@ document.addEventListener('alpine:init', () => {
                     }
                 }
             } catch (error) {
-                console.error('Error loading profile:', error);
                 alert('Gagal memuat profil: ' + error.message);
             } finally {
                 this.loading = false;

@@ -82,7 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
       newsContainer.innerHTML = '<p class="loading-text" style="text-align: center; padding: 2rem;">Memuat berita...</p>';
 
       if (!window.supabase) {
-        console.error("Supabase client is not available.");
         newsContainer.innerHTML = '<p style="text-align: center; color: red;">Gagal memuat Supabase client.</p>';
         return;
       }
@@ -120,7 +119,6 @@ document.addEventListener("DOMContentLoaded", () => {
         newsContainer.innerHTML = '<p style="text-align: center;">Belum ada berita yang diterbitkan.</p>';
       }
     } catch (error) {
-      console.error('Error fetching news:', error);
       newsContainer.innerHTML = '<p style="text-align: center; color: red;">Gagal memuat berita.</p>';
     }
   }

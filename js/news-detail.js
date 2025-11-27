@@ -59,7 +59,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
     } catch (error) {
-        console.error('Error fetching news detail:', error);
         showError('Gagal memuat detail berita. Silakan coba lagi nanti.');
     }
 });

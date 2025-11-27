@@ -1,4 +1,3 @@
-/* ================== NEWS DETAIL PAGE ================== */
 .news-detail-page {
   font-family: "Open Sans", sans-serif;
   color: #333;
@@ -112,7 +111,6 @@
   background: #1b5e20;
 }
 
-/* ================== SIDEBAR ================== */
 .news-detail-page .news-sidebar {
   display: flex;
   flex-direction: column;

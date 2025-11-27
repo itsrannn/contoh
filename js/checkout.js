@@ -165,7 +165,6 @@ async function processCheckout(profile) {
   });
 
   if (error) {
-    console.error('Error creating order:', error);
     return window.showNotification(`Terjadi kesalahan: ${error.message}`, true);
   }
 
