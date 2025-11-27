@@ -51,7 +51,6 @@ async function fetchOrders() {
         loadingMessage.style.display = 'none';
 
     } catch (error) {
-        console.error('Error fetching orders:', error);
         loadingMessage.textContent = 'Gagal memuat pesanan.';
         showAdminMessage(
             'Gagal Memuat Pesanan',
@@ -164,12 +163,10 @@ function createButton(text, onClick, a_class) {
 async function updateOrderStatus(order, newStatus) {
     const { data, error } = await supabase.from('orders').update({ status: newStatus }).eq('id', order.id).select();
     if (error) {
-        console.error('Error updating status:', error);
         alert(`Gagal memperbarui status pesanan: ${error.message}`);
         return;
     }
     if (!data || data.length === 0) {
-        console.error('Update failed silently. Likely RLS policy violation.');
         alert('Pembaruan Gagal: Anda mungkin tidak memiliki izin untuk mengubah pesanan ini.');
         return;
     }

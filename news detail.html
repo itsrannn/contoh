@@ -13,40 +13,31 @@
   </head>
 
   <body>
-    <!-- ========== HEADER INCLUDE ========== -->
     <div id="header-include"></div>
 
-    <!-- ======== KONTEN UTAMA DETAIL BERITA ======== -->
     <main class="main-content news-detail-page">
       <div class="container">
         <div class="news-layout">
           <!-- Kolom Kiri: Artikel Utama -->
           <article class="news-article-content">
-            <!-- Judul Berita (diisi oleh JS) -->
             <h1 id="news-title">Memuat Berita...</h1>
 
-            <!-- Meta Penulis & Tanggal (diisi oleh JS) -->
             <div class="news-meta">
               <span>By <strong id="news-author">Tim Redaksi</strong></span>
               <span>|</span>
               <span id="news-date"></span>
             </div>
 
-            <!-- Konten Hero: Gambar/Video (diisi oleh JS) -->
             <div class="news-hero" id="news-hero-content">
-              <!-- Placeholder saat memuat -->
               <img
                 src="https://placehold.co/1200x600/f0f0f0/999?text=Loading..."
                 alt="Loading Placeholder"
               />
             </div>
 
-            <!-- Isi Artikel Lengkap (diisi oleh JS) -->
             <div class="news-body" id="news-body">
               <p>
-                Sedang memuat isi artikel. Pastikan file
-                <code>app.js</code> terhubung dan fungsi
-                <code>loadNewsById</code> berfungsi dengan baik.
+                Sedang memuat isi artikel.
               </p>
             </div>
 
@@ -69,7 +60,6 @@
             <div class="sidebar-widget">
               <h4>Produk Terkait</h4>
               <div id="related-products-list">
-                <!-- Data ini bisa diisi secara dinamis, tapi untuk saat ini, pakai data statis -->
                 <a href="product-detail.html?id=2" class="sidebar-product">
                   <img
                     src="https://placehold.co/80x80/c7eacb/333?text=Tomat"
@@ -96,7 +86,6 @@
             <div class="sidebar-widget">
               <h4>Berita Terbaru</h4>
               <ul id="related-news-list" class="sidebar-news-list">
-                <!-- Ini bisa diisi oleh JS dengan mengambil 3 berita terbaru dari allNewsData -->
                 <li>
                   <a href="news detail.html?id=nutrisi-ab-mix"
                     >Mengapa Nutrisi AB Mix Penting</a
@@ -110,12 +99,9 @@
         </div>
       </div>
     </main>
-    <!-- ======== AKHIR KONTEN UTAMA ======== -->
 
     <div id="notification" class="notification"></div>
-    <!-- Tambahkan Notifikasi -->
 
-    <!-- ========== FOOTER INCLUDE ========== -->
     <div id="footer-include"></div>
 
     <script src="https://unpkg.com/feather-icons"></script>
