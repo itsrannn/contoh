@@ -1,3 +1,138 @@
+// ==================== Data Produk Global ====================
+async function fetchProducts() {
+  try {
+    const { data, error } = await window.supabase
+      .from("products")
+      .select("*")
+      .order("id", { ascending: true });
+
+    if (error) {
+      console.error("Error fetching products:", error);
+      return [];
+    }
+    return data;
+  } catch (err) {
+    console.error("Unexpected error fetching products:", err);
+    return [];
+  }
+}
+
+// ==================== Data Berita Global (diambil dari Supabase) ====================
+async function fetchNews() {
+  try {
+    const { data, error } = await window.supabase
+      .from("news")
+      .select("*")
+      .order("created_at", { ascending: false });
+
+    if (error) {
+      console.error("Error fetching news:", error);
+      return [];
+    }
+    return data;
+  } catch (err) {
+    console.error("Unexpected error fetching news:", err);
+    return [];
+  }
+}
+
+async function fetchNewsById(id) {
+  try {
+    const { data, error } = await window.supabase
+      .from("news")
+      .select("*")
+      .eq("id", id)
+      .single();
+
+    if (error) {
+      console.error("Error fetching news by ID:", error);
+      return null;
+    }
+    return data;
+  } catch (err) {
+    console.error("Unexpected error fetching news by ID:", err);
+    return null;
+  }
+}
+
+// ==================== Fungsi Render Berita ====================
+function renderNewsCards(newsData) {
+  const container = document.getElementById("index-news-container");
+  if (!container) return;
+
+  container.innerHTML = "";
+
+  const newsToDisplay = newsData.slice(0, 3);
+
+  newsToDisplay.forEach((news) => {
+    const summaryText = news.excerpt || (news.content ? news.content.substring(0, 100) : 'Tidak ada ringkasan.');
+    const truncatedSummary = summaryText.length > 50
+      ? summaryText.substring(0, 50) + "..."
+      : summaryText;
+
+    const card = document.createElement("a");
+    card.href = `news detail.html?id=${news.id}`;
+    card.classList.add("news-card");
+    card.innerHTML = `
+      <img src="${news.image_url}" alt="${news.title}" />
+      <div class="news-card-content">
+        <h3 class="news-card-title">${news.title}</h3>
+        <p class="news-card-summary">${truncatedSummary}</p>
+        <div class="news-card-date">${new Date(news.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}</div>
+      </div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+// ==================== Fungsi untuk Memuat Detail Berita ====================
+async function loadNewsDetail() {
+    const params = new URLSearchParams(window.location.search);
+    const newsId = params.get('id');
+    if (!newsId) {
+        document.getElementById("news-title").innerText = "ID Berita Tidak Valid";
+        return;
+    }
+
+    const titleEl = document.getElementById("news-title");
+    const dateEl = document.getElementById("news-date");
+    const authorEl = document.getElementById("news-author");
+    const heroEl = document.getElementById("news-hero-content");
+    const bodyEl = document.getElementById("news-body");
+
+    if (!titleEl || !bodyEl) return;
+
+    const news = await fetchNewsById(newsId);
+
+    if (!news) {
+        titleEl.innerText = "Berita Tidak Ditemukan";
+        bodyEl.innerHTML = "<p>Maaf, berita yang Anda cari tidak dapat ditemukan.</p>";
+        return;
+    }
+
+    document.title = news.title;
+    titleEl.innerText = news.title;
+    dateEl.innerText = new Date(news.created_at).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+    authorEl.innerText = news.author || "Tim Redaksi";
+    heroEl.innerHTML = `<img src="${news.image_url}" alt="${news.title}" />`;
+    bodyEl.innerHTML = news.content;
+}
+
+
+// ==================== Logika Inisialisasi Halaman ====================
+document.addEventListener("DOMContentLoaded", async () => {
+    if (document.getElementById("index-news-container")) {
+        const newsData = await fetchNews();
+        renderNewsCards(newsData);
+    }
+    if (document.querySelector(".news-detail-page")) {
+        await loadNewsDetail();
+    }
+    if (typeof feather !== "undefined") {
+        feather.replace();
+    }
+});
+
 document.addEventListener("alpine:init", () => {
   // --- Centralized Stores ---
   Alpine.store("products", {
@@ -320,6 +455,79 @@ document.addEventListener("alpine:init", () => {
           }, 1500);
       }
   }));
+
+  // --- Products Page Component (from index.html) ---
+  Alpine.data('products', () => ({
+    searchTerm: "",
+    currentPage: 1,
+    itemsPerPage: 8,
+    selectedCategory: "all",
+    sortOption: "default",
+
+    init() {
+      const rerenderIcons = () => this.$nextTick(() => feather.replace());
+
+      this.$watch('currentPage', rerenderIcons);
+      this.$watch('isLoading', (loading) => {
+        if (!loading) rerenderIcons();
+      });
+      this.$watch('[selectedCategory, sortOption, searchTerm]', () => {
+        this.currentPage = 1;
+        rerenderIcons();
+      });
+    },
+
+    formatRupiah(value) {
+      if (!value) return "Rp 0";
+      return "Rp " + value.toLocaleString("id-ID");
+    },
+
+    get items() {
+      return Alpine.store('products').all;
+    },
+    get isLoading() {
+      return Alpine.store('products').isLoading;
+    },
+
+    processedItems() {
+      let processed = [...this.items];
+      if (this.selectedCategory !== 'all') {
+        processed = processed.filter(item => item.category === this.selectedCategory);
+      }
+      if (this.searchTerm.trim() !== '') {
+        processed = processed.filter(item => item.name.toLowerCase().includes(this.searchTerm.toLowerCase()));
+      }
+      if (this.sortOption === 'price-asc') {
+        processed.sort((a, b) => a.price - b.price);
+      } else if (this.sortOption === 'price-desc') {
+        processed.sort((a, b) => b.price - a.price);
+      }
+      return processed;
+    },
+
+    paginatedItems() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.processedItems().slice(start, end);
+    },
+
+    totalPages() {
+      return Math.ceil(this.processedItems().length / this.itemsPerPage);
+    },
+
+    goToPage(page) {
+      if (page >= 1 && page <= this.totalPages()) {
+        this.currentPage = page;
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    },
+  }));
+  // Manual initialization for the products component
+  const productLayout = document.querySelector('.layout.container');
+  if (productLayout) {
+    productLayout.setAttribute('x-data', 'products');
+    Alpine.initTree(productLayout);
+  }
 });
 
 // Global notification
