@@ -78,6 +78,76 @@ document.addEventListener("alpine:init", () => {
     }
   });
 
+  // --- Page Components ---
+  Alpine.data('products', () => ({
+    searchTerm: '',
+    selectedCategory: 'all',
+    sortOption: 'default',
+    currentPage: 1,
+    itemsPerPage: 12,
+
+    processedItems() {
+      let items = Alpine.store('products').all;
+
+      if (this.searchTerm.trim()) {
+        const query = this.searchTerm.toLowerCase();
+        items = items.filter(item =>
+          item.name.toLowerCase().includes(query) ||
+          (item.description && item.description.toLowerCase().includes(query))
+        );
+      }
+
+      if (this.selectedCategory !== 'all') {
+        items = items.filter(item => item.category === this.selectedCategory);
+      }
+
+      const sortedItems = [...items];
+      switch (this.sortOption) {
+        case 'price-asc':
+          sortedItems.sort((a, b) => a.price - b.price);
+          break;
+        case 'price-desc':
+          sortedItems.sort((a, b) => b.price - a.price);
+          break;
+      }
+      return sortedItems;
+    },
+
+    paginatedItems() {
+      const start = (this.currentPage - 1) * this.itemsPerPage;
+      const end = start + this.itemsPerPage;
+      return this.processedItems().slice(start, end);
+    },
+
+    totalPages() {
+      return Math.ceil(this.processedItems().length / this.itemsPerPage);
+    },
+
+    goToPage(page) {
+      if (page < 1 || page > this.totalPages()) return;
+      this.currentPage = page;
+      const productSection = document.getElementById('Product');
+      if (productSection) {
+        window.scrollTo({ top: productSection.offsetTop, behavior: 'smooth' });
+      }
+    },
+
+    formatRupiah(number) {
+        if (isNaN(number)) return "Rp 0";
+        return new Intl.NumberFormat("id-ID", {
+            style: "currency",
+            currency: "IDR",
+            minimumFractionDigits: 0
+        }).format(number);
+    },
+
+    init() {
+      this.$watch('searchTerm', () => this.currentPage = 1);
+      this.$watch('selectedCategory', () => this.currentPage = 1);
+      this.$watch('sortOption', () => this.currentPage = 1);
+    }
+  }));
+
   // --- Page Component (FINAL FIXED VERSION) ---
   Alpine.data('contentManager', () => ({
     activeTab: 'products',
